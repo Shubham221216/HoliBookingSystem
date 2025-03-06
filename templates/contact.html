@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us - Holi Festival</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Container */
+        .contact-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Header */
+        h2 {
+            color: #ff4757;
+            font-size: 32px;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Form */
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background: #ff4757;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .contact-form button:hover {
+            background: #e8413d;
+        }
+
+        /* Social Media */
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 20px;
+            color: #ff4757;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #e8413d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-container">
+        <h2>📞 Contact Us</h2>
+
+        <p class="contact-info">
+            📩 Email: <a href="mailto:chowdhurydevhelp22@gmail.com">support@holibooking.com</a> <br>
+            📞 Phone: <a href="tel:+9049404870">+91 9049404870</a> <br>
+            📍 Address: Kirkatwadi, Nana Nagar, Pune City, India
+        </p>
+
+        <!-- <h3>📬 Send Us a Message</h3>
+        <form class="contact-form" action="contactFormHandler" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form> -->
+
+        <!-- <h3>🌐 Follow Us on Social Media</h3>
+        <div class="social-links">
+            <a href="https://facebook.com/holifestival" target="_blank">Facebook</a>
+            <a href="https://instagram.com/holifestival" target="_blank">Instagram</a>
+            <a href="https://twitter.com/holifestival" target="_blank">Twitter</a>
+        </div> -->
+    </div>
+
+</body>
+</html>

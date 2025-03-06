@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Privacy Policy - Holi Festival</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Container */
+        .policy-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        /* Header */
+        h2 {
+            color: #ff4757;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        /* Paragraph */
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* List */
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        /* Footer Link */
+        .footer-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ff4757;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="policy-container">
+        <h2>🔒 Privacy Policy</h2>
+
+        <p>Your privacy is our top priority. At **Holi Festival**, we ensure that your personal information is handled securely and responsibly.</p>
+
+        <h3>📌 What Information Do We Collect?</h3>
+        <ul>
+            <li>Personal details like **name, email, and phone number** during ticket booking.</li>
+            <li>Payment details for secure transactions (processed through trusted gateways).</li>
+            <li>Basic device and browser information to improve your user experience.</li>
+        </ul>
+
+        <h3>🔐 How Do We Use Your Data?</h3>
+        <ul>
+            <li>To **confirm your bookings** and provide event updates.</li>
+            <li>To **process payments** securely.</li>
+            <li>To send important **event reminders and offers** (only if you opt-in).</li>
+        </ul>
+
+        <h3>🚫 Data Protection & Security</h3>
+        <p>We use **encryption and secure servers** to protect your data. Your personal information is **never shared or sold** to third parties.</p>
+
+        <h3>🛑 Your Rights & Choices</h3>
+        <ul>
+            <li>You can **request deletion** of your personal data at any time.</li>
+            <li>You can **unsubscribe** from promotional emails whenever you wish.</li>
+            <li>We follow all **legal and ethical data protection standards**.</li>
+        </ul>
+
+        <p>If you have any concerns or need further assistance, feel free to **[Contact Us](contact.html)**.</p>
+
+        <a href="{{ url_for('index') }}" class="footer-link">⬅️ Back to Home</a>
+        
+    </div>
+
+</body>
+</html>
