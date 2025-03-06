@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Proceed to Payment</h1>
+    <button id="rzp-button">Pay ₹{{ amount }}</button>
+
+    <script>
+        var options = {
+            "key": "{{ key_id }}", 
+            "amount": "{{ amount * 100 }}",
+            "currency": "INR",
+            "name": "Your Business Name",
+            "description": "Ticket Booking",
+            "order_id": "{{ order_id }}",
+            "handler": function (response){
+                window.location.href = "/payment-success?payment_id=" + response.razorpay_payment_id;
+            },
+            "prefill": {
+                "email": "user@example.com",
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Proceed to Payment</h1>
+
+    <!-- Razorpay QR Code -->
+    <h3>Scan QR Code to Pay:</h3>
+    <img src="{{ qr_code }}" alt="Razorpay QR Code" width="250">
+
+    <h3>Or Pay Online</h3>
+    <button id="rzp-button">Pay ₹{{ amount }}</button>
+
+    <script>
+        var options = {
+            "key": "{{ key_id }}", 
+            "amount": "{{ amount * 100 }}",
+            "currency": "INR",
+            "name": "Your Business Name",
+            "description": "Ticket Booking",
+            "order_id": "{{ order_id }}",
+            "handler": function (response){
+                window.location.href = "/payment-success?payment_id=" + response.razorpay_payment_id;
+            },
+            "prefill": {
+                "email": "user@example.com",
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>

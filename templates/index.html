@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Holi Ticket Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Welcome to Holi Festival</h2>
+    <p>Scan the QR code or enter your details to book your tickets!</p>
+    <form action="{{ url_for('book') }}" method="POST">
+        <label for="num_tickets">Number of Tickets:</label>
+        <input type="number" name="num_tickets" min="1" max="10" required>
+        <button type="submit">Proceed</button>
+    </form>
+</body>
+</html>
