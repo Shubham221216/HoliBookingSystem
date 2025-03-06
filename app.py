@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text  # Import text function
 import razorpay
 from flask_mail import Mail, Message
 
@@ -18,6 +19,17 @@ RAZORPAY_KEY_ID = "rzp_test_VZKIHHebGEvpUq"
 RAZORPAY_KEY_SECRET = "9LUICQqLLWDy24VMn9BaOLmP"
 
 db = SQLAlchemy(app)
+
+
+# Function to check database connection
+def check_db_connection():
+    try:
+        db.session.execute(text('SELECT 1'))  # Explicitly using text()
+        print("Database connected successfully!")
+    except Exception as e:
+        print(f"Error connecting to the database: {e}")
+
+
 
 # Razorpay API Keys (Replace with your actual keys)
 razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
@@ -46,6 +58,8 @@ class Booking(db.Model):
 
 # Initialize the Database
 with app.app_context():
+    check_db_connection()
+
     db.create_all()
 
 @app.route('/')
