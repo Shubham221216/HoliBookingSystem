@@ -3,14 +3,118 @@
 <head>
     <title>Holi Ticket Booking</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            background: #ff9a9e;
+            border-radius: 5px;
+        }
+
+        /* Welcome Section */
+        h2 {
+            color: #fff;
+            margin-top: 40px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .booking-form label {
+            font-size: 16px;
+            color: #444;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .booking-form input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .booking-form button {
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .booking-form button:hover {
+            background: #e84118;
+        }
+
+        .available-tickets {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
-    <h2>Welcome to Holi Festival</h2>
-    <p>Scan the QR code or enter your details to book your tickets!</p>
-    <form action="{{ url_for('book') }}" method="POST">
-        <label for="num_tickets">Number of Tickets:</label>
-        <input type="number" name="num_tickets" min="1" max="10" required>
-        <button type="submit">Proceed</button>
-    </form>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+
+    <!-- Welcome Message -->
+    <h2>🎉 Welcome to Holi Festival 🎨</h2>
+    
+
+    <!-- Ticket Booking Form -->
+    <div class="booking-form">
+        <form action="{{ url_for('book') }}" method="POST">
+            <label for="num_tickets">Number of Tickets:</label>
+            <input type="number" name="num_tickets" min="1" max="10" required>
+            <button type="submit">Proceed</button>
+        </form>
+        <p class="available-tickets">Available Tickets: {{ available_tickets }}</p>
+    </div>
+
 </body>
 </html>
