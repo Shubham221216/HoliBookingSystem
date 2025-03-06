@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terms & Conditions - Holi Festival</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Container */
+        .terms-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        /* Header */
+        h2 {
+            color: #ff4757;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        /* Paragraph */
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* List */
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        /* Footer Link */
+        .footer-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ff4757;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terms-container">
+        <h2>📜 Terms & Conditions</h2>
+
+        <p>Welcome to the **Holi Festival 2024**! Please read the following terms carefully before booking your tickets.</p>
+
+        <h3>🎟️ Ticket Booking & Entry</h3>
+        <ul>
+            <li>All tickets are **non-refundable** and **non-transferable** after payment.</li>
+            <li>Entry is only permitted with a **valid e-ticket and a government-issued ID**.</li>
+            <li>Tickets cannot be resold or exchanged under any circumstances.</li>
+        </ul>
+
+        <h3>📌 Event Rules & Guidelines</h3>
+        <ul>
+            <li>The festival is **open for all ages**, but children under 12 must be accompanied by an adult.</li>
+            <li>Outside food, drinks, and **prohibited items** (alcohol, drugs, weapons) are strictly **not allowed**.</li>
+            <li>All participants must follow **COVID-19 guidelines** (if applicable) and **safety measures** at the venue.</li>
+        </ul>
+
+        <h3>💰 Payments & Refund Policy</h3>
+        <ul>
+            <li>Once a ticket is booked, **no refunds** will be provided under any circumstances.</li>
+            <li>In case of **event cancellation** due to unforeseen reasons, refunds will be issued **within 7 working days**.</li>
+        </ul>
+
+        <h3>🎥 Photography & Media</h3>
+        <ul>
+            <li>By attending the event, you **agree to be photographed** or **filmed** during the celebration.</li>
+            <li>These images may be used for promotional and social media purposes.</li>
+        </ul>
+
+        <h3>⚠️ Liability Disclaimer</h3>
+        <p>**Holi Festival organizers are not responsible** for any loss, damage, injury, or theft at the event. Visitors must take care of their personal belongings.</p>
+
+        <p>By booking a ticket, you **agree to follow these terms and conditions**. For any queries, please **[Contact Us](contact.html)**.</p>
+
+        <a href="{{ url_for('index') }}" class="footer-link">⬅️ Back to Home</a>
+    </div>
+
+</body>
+</html>
