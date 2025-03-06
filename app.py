@@ -3,14 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text  # Import text function
 import razorpay
 from flask_mail import Mail, Message
-
+from sqlalchemy import inspect
 
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure MySQL Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Naruto%40123@localhost/holi_booking'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:nESoqHxQRFPlcUziHcBQgIxTTDbdoRAT@gondola.proxy.rlwy.net:48132/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -58,9 +58,17 @@ class Booking(db.Model):
 
 # Initialize the Database
 with app.app_context():
+    db.create_all()
+    try:
+        inspector = inspect(db.engine)
+        tables = inspector.get_table_names()  # Correct method
+        print("Tables in the database:", tables)
+    except Exception as e:
+        print(f"Error fetching tables: {e}")
+
     check_db_connection()
 
-    db.create_all()
+    
 
 @app.route('/')
 def index():
