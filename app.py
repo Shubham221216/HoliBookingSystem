@@ -31,6 +31,25 @@ def check_db_connection():
 
 
 
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
 # Razorpay API Keys (Replace with your actual keys)
 razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
@@ -47,6 +66,7 @@ app.config['MAIL_DEFAULT_SENDER'] ='chowdhurydevhelp22@gmail.com'
 mail = Mail(app)
 
 
+
 # Define the Booking Model
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +74,7 @@ class Booking(db.Model):
     num_tickets = db.Column(db.Integer, nullable=False)
     total_price = db.Column(db.Integer, nullable=False)
     payment_status = db.Column(db.Enum('Pending', 'Paid'), default='Pending')
+    booking_count = db.Column(db.Integer, default=0)  # New Column
 
 
 # Initialize the Database
@@ -63,6 +84,15 @@ with app.app_context():
         inspector = inspect(db.engine)
         tables = inspector.get_table_names()  # Correct method
         print("Tables in the database:", tables)
+
+        
+         # Loop through each table and print its columns
+        for table in tables:
+            columns = inspector.get_columns(table)
+            print(f"Columns in table '{table}':")
+            for col in columns:
+                print(f" - {col['name']} ({col['type']})")
+
     except Exception as e:
         print(f"Error fetching tables: {e}")
 
@@ -72,14 +102,26 @@ with app.app_context():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+    available_tickets = 1500 - total_booked
+    return render_template('index.html', available_tickets=available_tickets)
+
 
 @app.route('/book', methods=['GET', 'POST'])
 def book():
     if request.method == 'POST':
         num_tickets = int(request.form['num_tickets'])
+
+        # Calculate the total booked tickets
+        total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+
+        # Check if total booked tickets exceed 1500
+        if total_booked + num_tickets > 1500:
+            return "Booking limit exceeded! No more tickets available."
+
         session['num_tickets'] = num_tickets
         return render_template('booking.html', num_tickets=num_tickets)
+
     return render_template('index.html')
 
 
@@ -159,18 +201,28 @@ def payment():
 #     return render_template('success.html', email=session.get('email'))
 
 
+@app.route('/payment-success', methods=['GET'])
 def payment_success():
     email = session.get('email')
     names = session.get('names', [])
     amount = session.get('amount', 0)
+    num_tickets = session.get('num_tickets', 0)
     payment_id = request.args.get('payment_id', 'N/A')  # Razorpay sends payment_id in query params
+
+    # Calculate the total booked tickets before adding new booking
+    total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+
+    # Check if the booking exceeds the limit
+    if total_booked + num_tickets > 1500:
+        return "Booking limit exceeded! No more tickets available."
 
     # Store booking details
     new_booking = Booking(
         user_email=email,
-        num_tickets=session.get('num_tickets'),
+        num_tickets=num_tickets,
         total_price=amount,
-        payment_status='Pending'  # Change to 'Paid' manually after checking Razorpay dashboard
+        payment_status='Paid',
+        booking_count=total_booked + num_tickets  # Update booking_count
     )
     db.session.add(new_booking)
     db.session.commit()
@@ -179,6 +231,7 @@ def payment_success():
     send_invoice_email(email, names, amount, payment_id)
 
     return render_template('success.html', email=email)
+
 
 
 
