@@ -131,43 +131,20 @@ def book():
 
 
 
-# @app.route('/payment', methods=['POST'])
-# def payment():
-#     names = [request.form[f'name_{i}'] for i in range(1, int(session['num_tickets']) + 1)]
-    
-#     email = request.form['email']
-#     amount = session['num_tickets'] * 500  # ₹500 per ticket
-    
-#     session['email'] = email
-#     session['names'] = names
-#     session['amount'] = amount
-
-#     # Redirect user to Razorpay.me payment link
-#     return redirect("https://razorpay.me/@shubham5352")
-
-
-# @app.route('/payment', methods=['POST'])
-# def payment():
-#     num_tickets = int(session.get('num_tickets', 1))
-#     amount = num_tickets * 500  # ₹500 per ticket
-
-#     session['amount'] = amount
-
-#     # Create Razorpay order
-#     order = razorpay_client.order.create({
-#         "amount": amount * 100,  # Convert to paisa
-#         "currency": "INR",
-#         "payment_capture": "1"  # Auto capture payment
-#     })
-
-#     return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID)
-
 
 @app.route('/payment', methods=['POST'])
 def payment():
     email = request.form.get('email', 'Unknown')  # Use `.get()` to prevent errors
     session['email'] = email  # Store in session
     print(f"Email stored in session: {session.get('email')}")  # Debugging
+
+
+
+    # ✅ Store multiple names in session as a list
+    names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
+    session['names'] = names  # Store names in session
+    print(f"Names stored in session: {session.get('names')}")  # Debugging
+
     print("This is payment() function")
 
     num_tickets = int(session.get('num_tickets', 1))
@@ -183,11 +160,7 @@ def payment():
         "payment_capture": "1"  # Auto capture payment
     })
 
-    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email)
-
-
-    
-
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,names=names)
 
 
 
@@ -235,7 +208,7 @@ def payment_success():
         # ✅ Send invoice email to user
         send_invoice_email(email, names, amount, payment_id)
 
-        return render_template('success.html', email=email)
+        return render_template('success.html', email=email,names=names)
 
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
@@ -245,8 +218,10 @@ def payment_success():
 def success():
     email = session.get('email','Unknown')
     print(f"Retrieved Email in /payment_success: {email}")  # Debugging
+    names = session.get('names', [])  # Retrieve names
+    print(f"Retrieved Names in /success: {names}")  # Debugging
     print("This is payment_success() function")
-    return render_template('success.html', email=email)
+    return render_template('success.html', email=email,names=names)
 
 
 def send_invoice_email(email, names, amount, payment_id):
