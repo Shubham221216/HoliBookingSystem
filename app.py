@@ -205,7 +205,7 @@ def payment():
 
 #     return render_template('success.html', email=session.get('email'))
 
-
+@app.route('/payment-success', methods=['POST'])
 def payment_success():
     email = session.get('email')
     names = session.get('names', [])
