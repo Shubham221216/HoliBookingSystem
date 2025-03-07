@@ -59,7 +59,7 @@
             "order_id": "{{ order_id }}",
             "handler": function (response) {
                 // ✅ Send payment details to server for verification
-                fetch("/payment-success", {
+                fetch("/payment_success", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
