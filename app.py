@@ -15,8 +15,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # 🔑 Replace with your Razorpay API Keys
-RAZORPAY_KEY_ID = "rzp_test_VZKIHHebGEvpUq"
-RAZORPAY_KEY_SECRET = "9LUICQqLLWDy24VMn9BaOLmP"
+RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
+RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
 
 db = SQLAlchemy(app)
 
@@ -164,25 +164,30 @@ def payment():
     amount = num_tickets * 500  # ₹500 per ticket
     session['amount'] = amount
 
-    # Create Razorpay order
+    # Create Razorpay order for LIVE mode
     order = razorpay_client.order.create({
         "amount": amount * 100,  # Convert to paisa
         "currency": "INR",
         "payment_capture": "1"  # Auto capture payment
     })
 
-    # Create Razorpay QR Code
-    qr_code = razorpay_client.qrcode.create({
-        "type": "upi_qr",
-        "name": "Ticket Payment",
-        "usage": "single_use",
-        "fixed_amount": True,
-        "payment_amount": amount * 100,
-        "description": "Ticket Booking Payment",
-        "order_id": order['id']
-    })
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID)
 
-    return render_template('payment.html', order_id=order['id'], qr_code=qr_code['image_url'], amount=amount, key_id=RAZORPAY_KEY_ID)
+
+    # Create Razorpay QR Code
+    # Remove or modify the Razorpay QR Code section (Only for test mode)
+    # qr_code = razorpay_client.qrcode.create({
+    #     "type": "upi_qr",
+    #     "name": "Ticket Payment",
+    #     "usage": "single_use",
+    #     "fixed_amount": True,
+    #     "payment_amount": amount * 100,
+    #     "description": "Ticket Booking Payment",
+    #     "order_id": order['id']
+    # })
+
+
+    # return render_template('payment.html', order_id=order['id'], qr_code=qr_code['image_url'], amount=amount, key_id=RAZORPAY_KEY_ID)
 
 
 
@@ -201,37 +206,26 @@ def payment():
 #     return render_template('success.html', email=session.get('email'))
 
 
-@app.route('/payment-success', methods=['GET'])
 def payment_success():
     email = session.get('email')
     names = session.get('names', [])
     amount = session.get('amount', 0)
-    num_tickets = session.get('num_tickets', 0)
     payment_id = request.args.get('payment_id', 'N/A')  # Razorpay sends payment_id in query params
-
-    # Calculate the total booked tickets before adding new booking
-    total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
-
-    # Check if the booking exceeds the limit
-    if total_booked + num_tickets > 1500:
-        return "Booking limit exceeded! No more tickets available."
 
     # Store booking details
     new_booking = Booking(
         user_email=email,
-        num_tickets=num_tickets,
+        num_tickets=session.get('num_tickets'),
         total_price=amount,
-        payment_status='Paid',
-        booking_count=total_booked + num_tickets  # Update booking_count
+        payment_status='Pending'  # Change to 'Paid' manually after checking Razorpay dashboard
     )
     db.session.add(new_booking)
     db.session.commit()
 
-    # Send invoice email
-    send_invoice_email(email, names, amount, payment_id)
+        # Send invoice email
+        send_invoice_email(email, session.get('names', []), amount, payment_id)
 
-    return render_template('success.html', email=email)
-
+        return render_template('success.html', email=email)
 
 
 
