@@ -243,7 +243,9 @@ def payment_success():
 
 @app.route('/success')
 def success():
-    email = session.get('email', 'Unknown')
+    email = session.get('email','Unknown')
+    print(f"Retrieved Email in /payment_success: {email}")  # Debugging
+    print("This is payment_success() function")
     return render_template('success.html', email=email)
 
 
