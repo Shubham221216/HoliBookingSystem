@@ -222,10 +222,9 @@ def payment_success():
     db.session.add(new_booking)
     db.session.commit()
 
-        # Send invoice email
-        send_invoice_email(email, session.get('names', []), amount, payment_id)
-
-        return render_template('success.html', email=email)
+    # Send invoice email
+    send_invoice_email(email, session.get('names', []), amount, payment_id)
+    return render_template('success.html', email=email)
 
 
 
