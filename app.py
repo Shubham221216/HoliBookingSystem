@@ -161,7 +161,7 @@ def book():
 @app.route('/payment', methods=['POST'])
 def payment():
     num_tickets = int(session.get('num_tickets', 1))
-    amount = num_tickets * 5  # ₹500 per ticket
+    amount = num_tickets * 10 # ₹500 per ticket
     session['amount'] = amount
 
     # Create Razorpay order for LIVE mode
@@ -210,21 +210,48 @@ def payment_success():
     email = session.get('email')
     names = session.get('names', [])
     amount = session.get('amount', 0)
-    payment_id = request.args.get('payment_id', 'N/A')  # Razorpay sends payment_id in query params
+    num_tickets = session.get('num_tickets', 0)
 
-    # Store booking details
-    new_booking = Booking(
-        user_email=email,
-        num_tickets=session.get('num_tickets'),
-        total_price=amount,
-        payment_status='Pending'  # Change to 'Paid' manually after checking Razorpay dashboard
-    )
-    db.session.add(new_booking)
-    db.session.commit()
+    # Get Razorpay Payment Details from frontend
+    payment_id = request.form.get('razorpay_payment_id')
+    order_id = request.form.get('razorpay_order_id')
+    signature = request.form.get('razorpay_signature')
 
-    # Send invoice email
-    send_invoice_email(email, session.get('names', []), amount, payment_id)
-    return render_template('success.html', email=email)
+    # ✅ Verify Payment with Razorpay
+    params_dict = {
+        'razorpay_order_id': order_id,
+        'razorpay_payment_id': payment_id,
+        'razorpay_signature': signature
+    }
+
+    try:
+        # 🚀 Razorpay verification (only proceed if this passes)
+        razorpay_client.utility.verify_payment_signature(params_dict)
+        print("✅ Payment verified successfully.")
+
+        # ✅ Check total booked tickets before storing the booking
+        total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+        if total_booked + num_tickets > 1500:
+            return "❌ Booking limit exceeded! No more tickets available."
+
+        # ✅ Store booking details in database
+        new_booking = Booking(
+            user_email=email,
+            num_tickets=num_tickets,
+            total_price=amount,
+            payment_status='Paid'
+        )
+        db.session.add(new_booking)
+        db.session.commit()
+
+        # ✅ Send invoice email to user
+        send_invoice_email(email, names, amount, payment_id)
+
+        return render_template('success.html', email=email)
+
+    except razorpay.errors.SignatureVerificationError:
+        return "❌ Payment verification failed!", 400
+
 
 
 
