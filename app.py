@@ -4,10 +4,15 @@ from sqlalchemy import text  # Import text function
 import razorpay
 from flask_mail import Mail, Message
 from sqlalchemy import inspect
+from datetime import timedelta
+
 
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 # Configure MySQL Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:nESoqHxQRFPlcUziHcBQgIxTTDbdoRAT@gondola.proxy.rlwy.net:48132/railway'
@@ -160,7 +165,14 @@ def book():
 
 @app.route('/payment', methods=['POST'])
 def payment():
+    email = request.form.get('email', 'Unknown')  # Use `.get()` to prevent errors
+    session['email'] = email  # Store in session
+    print(f"Email stored in session: {session.get('email')}")  # Debugging
+    print("This is payment() function")
+
     num_tickets = int(session.get('num_tickets', 1))
+    
+
     amount = num_tickets * 1 # ₹500 per ticket
     session['amount'] = amount
 
@@ -171,43 +183,19 @@ def payment():
         "payment_capture": "1"  # Auto capture payment
     })
 
-    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID)
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email)
 
 
-    # Create Razorpay QR Code
-    # Remove or modify the Razorpay QR Code section (Only for test mode)
-    # qr_code = razorpay_client.qrcode.create({
-    #     "type": "upi_qr",
-    #     "name": "Ticket Payment",
-    #     "usage": "single_use",
-    #     "fixed_amount": True,
-    #     "payment_amount": amount * 100,
-    #     "description": "Ticket Booking Payment",
-    #     "order_id": order['id']
-    # })
-
-
-    # return render_template('payment.html', order_id=order['id'], qr_code=qr_code['image_url'], amount=amount, key_id=RAZORPAY_KEY_ID)
+    
 
 
 
-# @app.route('/payment-success', methods=['GET'])
-# def payment_success():
-#     # Since there's no automatic verification, you must manually check payments in Razorpay dashboard.
-#     new_booking = Booking(
-#         user_email=session.get('email'),
-#         num_tickets=session.get('num_tickets'),
-#         total_price=session.get('amount'),
-#         payment_status='Pending'  # Change to 'Paid' manually after checking Razorpay dashboard
-#     )
-#     db.session.add(new_booking)
-#     db.session.commit()
 
-#     return render_template('success.html', email=session.get('email'))
-
-@app.route('/payment-success', methods=['POST'])
+@app.route('/payment_success', methods=['POST'])
 def payment_success():
-    email = session.get('email')
+    email = session.get('email','Unknown')
+    print(f"Retrieved Email in /payment_success: {email}")  # Debugging
+    print("This is payment_success() function")
     names = session.get('names', [])
     amount = session.get('amount', 0)
     num_tickets = session.get('num_tickets', 0)
@@ -251,6 +239,7 @@ def payment_success():
 
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
+
 
 @app.route('/success')
 def success():
