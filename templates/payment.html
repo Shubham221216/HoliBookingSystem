@@ -11,6 +11,11 @@
 
     <h3>Email:-{{email}}</h3>
     
+    <ul>
+        {% for name in names %}
+            <li>{{ name }}</li>
+        {% endfor %}
+    </ul>
 
     <h3>Or Pay Online</h3>
     <button id="rzp-button">Pay ₹{{ amount }}</button>
