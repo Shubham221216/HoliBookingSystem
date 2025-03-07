@@ -252,7 +252,10 @@ def payment_success():
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
 
-
+@app.route('/success')
+def success():
+    email = session.get('email', 'Unknown')
+    return render_template('success.html', email=email)
 
 
 def send_invoice_email(email, names, amount, payment_id):
