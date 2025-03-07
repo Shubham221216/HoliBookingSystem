@@ -161,7 +161,7 @@ def book():
 @app.route('/payment', methods=['POST'])
 def payment():
     num_tickets = int(session.get('num_tickets', 1))
-    amount = num_tickets * 500  # ₹500 per ticket
+    amount = num_tickets * 5  # ₹500 per ticket
     session['amount'] = amount
 
     # Create Razorpay order for LIVE mode
