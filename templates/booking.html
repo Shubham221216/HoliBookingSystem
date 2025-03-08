@@ -380,6 +380,35 @@
                 width: 90%;
             }
         }
+
+
+        .selected-plan {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(45deg, #ff5733, #ffcc33);
+        padding: 10px 15px;
+        border-radius: 8px;
+        display: inline-block;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 15px;
+        animation: glow 1.5s infinite alternate;
+    }
+
+    .selected-plan span {
+        font-weight: bold;
+        color: #ff5733;
+        background: #fff;
+        padding: 3px 8px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes glow {
+        0% { transform: scale(1); box-shadow: 2px 2px 10px rgba(255, 87, 51, 0.5); }
+        100% { transform: scale(1.05); box-shadow: 3px 3px 15px rgba(255, 87, 51, 0.7); }
+    }
     </style>
 </head>
 <body>
@@ -390,6 +419,10 @@
     <div class="container">
         <h2>Holi Festival 🎨 - Enter Attendee Details</h2>
         <form action="{{ url_for('payment') }}" method="POST">
+            <input type="hidden" name="plan_type" value="{{plan_type}}">
+
+            <h1 class="selected-plan">Your Selected Plan Type: <span>{{ plan_type }}</span></h1>
+
             {% for i in range(1, num_tickets + 1) %}
                 <div class="attendee-label">
                     <i class="fas fa-user"></i> 
