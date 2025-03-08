@@ -118,7 +118,7 @@
 
 </body>
 </html> -->
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -231,7 +231,7 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+     Navigation Bar 
     <nav>
         <a href="{{ url_for('about') }}">About Us</a>
         <a href="{{ url_for('privacy') }}">Privacy Policy</a>
@@ -239,11 +239,11 @@
         <a href="{{ url_for('contact') }}">Contact Us</a>
     </nav>
 
-    <!-- Welcome Section -->
+     Welcome Section 
     <h2>🎉 Welcome to the Grand Holi Festival 🎨</h2>
     <p>Join us in celebrating colors, joy, and togetherness! Book your tickets now!</p>
 
-    <!-- Ticket Booking Form -->
+     Ticket Booking Form 
     <div class="booking-form">
         <form action="{{ url_for('book') }}" method="POST">
             <label for="num_tickets">Number of Tickets:</label>
@@ -253,7 +253,7 @@
         <p class="available-tickets">Available Tickets: {{ available_tickets }}</p>
     </div>
 
-    <!-- Slideshow -->
+     Slideshow 
     <div class="slideshow-container">
         <img class="slide active-slide" src="{{ url_for('static', filename='holi_banner.jpg') }}" alt="Holi Festival Image 1">
         <img class="slide" src="{{ url_for('static', filename='holi_banner2.jpg') }}" alt="Holi Festival Image 2">
@@ -273,6 +273,178 @@
             if (slideIndex > slides.length) { slideIndex = 1; }
             slides[slideIndex - 1].style.display = "block";
             setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+        showSlides();
+    </script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holi Ticket Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex; /* Use flexbox */
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            justify-content: center; /* Center items */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px; /* Add some margin between links */
+        }
+
+        nav a:hover {
+            background: #ff9a9e;
+            border-radius: 5px;
+            padding: 10px 25px;
+        }
+
+        /* Slideshow Container */
+        .slideshow-container {
+            position: relative;
+            max-width: 90%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .active-slide {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .booking-form label {
+            font-size: 16px;
+            color: #444;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .booking-form input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .booking-form button {
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .booking-form button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+
+    <h2>🎉 Welcome to the Grand Holi Festival 🎨</h2>
+    <p>Join us in celebrating colors, joy, and togetherness! Book your tickets now!</p>
+
+    <div class="booking-form">
+        <form action="{{ url_for('book') }}" method="POST">
+            <label for="num_tickets">Number of Tickets:</label>
+            <input type="number" name="num_tickets" min="1" max="10" required>
+            <button type="submit">Proceed</button>
+        </form>
+        <p class="available-tickets">Available Tickets: {{ available_tickets }}</p>
+    </div>
+
+    <div class="slideshow-container">
+        <div class="slide active-slide">
+            <img src="{{ url_for('static', filename='holi_banner.jpg') }}" alt="Holi Festival Image 1">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='holi_banner2.jpg') }}" alt="Holi Festival Image 2">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='holi_banner3.jpg') }}" alt="Holi Festival Image 3">
+        </div>
+         <div class="slide">
+            <img src="{{ url_for('static', filename='holi_banner4.jpg') }}" alt="Holi Festival Image 4">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='holi_banner5.jpg') }}" alt="Holi Festival Image 5">
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.querySelectorAll(".slide");
+            slides.forEach((slide, index) => {
+                slide.style.display = "none";
+            });
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000);
         }
         showSlides();
     </script>
