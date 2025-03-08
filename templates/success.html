@@ -4,7 +4,14 @@
     <title>Booking Successful</title>
 </head>
 <body>
-    <h2>Payment Successful!</h2>
-    <p>Tickets have been booked successfully. A confirmation has been sent to {{ email }}</p>
+    
+    <h2>🎉 Payment Successful!</h2>
+    <p>Tickets have been booked successfully.</p>
+    <p>A confirmation has been sent to <strong>{{ email }}</strong></p>
+    <ul>
+        {% for name in names %}
+            <li>{{ name }}</li>
+        {% endfor %}
+    </ul>   
 </body>
 </html>
