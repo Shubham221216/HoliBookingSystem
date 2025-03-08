@@ -206,46 +206,26 @@ def payment():
 #     return render_template('success.html', email=session.get('email'))
 
 
-@app.route('/payment-success', methods=['POST'])
 def payment_success():
-    payment_id = request.form.get('razorpay_payment_id')
-    order_id = request.form.get('razorpay_order_id')
-    signature = request.form.get('razorpay_signature')
+    email = session.get('email')
+    names = session.get('names', [])
+    amount = session.get('amount', 0)
+    payment_id = request.args.get('payment_id', 'N/A')  # Razorpay sends payment_id in query params
 
-    # Verify payment with Razorpay
-    params_dict = {
-        'razorpay_order_id': order_id,
-        'razorpay_payment_id': payment_id,
-        'razorpay_signature': signature
-    }
-
-    try:
-        razorpay_client.utility.verify_payment_signature(params_dict)
-        print("Payment verified successfully.")
-
-        # Store booking details in the database
-        email = session.get('email')
-        num_tickets = session.get('num_tickets')
-        amount = session.get('amount')
-
-        new_booking = Booking(
-            user_email=email,
-            num_tickets=num_tickets,
-            total_price=amount,
-            payment_status='Paid'
-        )
-        db.session.add(new_booking)
-        db.session.commit()
+    # Store booking details
+    new_booking = Booking(
+        user_email=email,
+        num_tickets=session.get('num_tickets'),
+        total_price=amount,
+        payment_status='Pending'  # Change to 'Paid' manually after checking Razorpay dashboard
+    )
+    db.session.add(new_booking)
+    db.session.commit()
 
         # Send invoice email
         send_invoice_email(email, session.get('names', []), amount, payment_id)
 
         return render_template('success.html', email=email)
-
-    except razorpay.errors.SignatureVerificationError:
-        return "Payment verification failed!", 400
-
-
 
 
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,3 +103,109 @@
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us - Holi Festival</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Header */
+        h2 {
+            color: #fff;
+            font-size: 32px;
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        /* About Section */
+        .about-container {
+            background: white;
+            padding: 30px;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Event Highlights */
+        .highlights {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .highlight {
+            background: #ff4757;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            width: 250px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Join Us Button */
+        .cta-button {
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #e84118;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🎉 Welcome to the Grand Holi Festival 2025! 🌈</h2>
+
+    <div class="about-container">
+        <p><b>The Holi Festival</b> is not just about colors—it's about joy, love, and togetherness!  
+        Every year, we bring thousands of people together for a vibrant celebration filled with music, dance, and cultural performances.  
+        Get ready to **dance to the beats of dhol**, **enjoy rain dance zones**, and **splash colors** with friends and family! 🎶💃🎭</p>
+
+        <h3>✨ Event Highlights ✨</h3>
+        <div class="highlights">
+            <div class="highlight">🎶 Live DJ & Music Concerts</div>
+            <div class="highlight">🎭 Cultural Performances</div>
+            <div class="highlight">💦 Rain Dance & Color Splash</div>
+            <div class="highlight">🍱 Delicious Food Stalls</div>
+            <div class="highlight">📍 Biggest Holi Gathering in Town</div>
+        </div>
+
+        <p>Join us for an **unforgettable Holi experience** and be part of the **biggest festival of colors**!  
+        Grab your friends, wear your white outfits, and let’s paint the town with happiness! 🌸🎊</p>
+
+        <a href="{{ url_for('book') }}" class="cta-button">Book Your Tickets Now 🎟️</a>
+    </div>
+
+</body>
+</html>
+>>>>>>> 97c8ea740d903ecc51b0e808252eeb56640c45b2
