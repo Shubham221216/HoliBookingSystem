@@ -853,6 +853,42 @@
             display: block;
         }
 
+        .ticket-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.ticket-selector button {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.ticket-selector button:hover {
+    background-color: #e84118;
+    transform: scale(1.1);
+}
+
+.ticket-selector input {
+    width: 60px;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #ff4757;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
         
 
         @media (max-width: 768px) {
@@ -896,6 +932,12 @@
 
             .plan-info{
                 width: 85%;
+            }
+
+            .plus-minus{
+                padding: 20px;
+                color: yellow;
+                background-color: green;
             }
         }
     </style>
@@ -949,10 +991,22 @@
                     <option value="2">₹349 Plan (No restrictions)</option><!-- Change Price Here-->
                 </select>
 
-                <label for="num_tickets">Number of Tickets:</label>
-                <input type="number" name="num_tickets" id="numTickets" min="1" required>
+                <!-- <label for="num_tickets">Number of Tickets:</label>
+                <input type="number" name="num_tickets" id="numTickets" min="1" required> -->
 
+                <label for="num_tickets">Number of Tickets:</label>
+                <div class="ticket-selector">
+                    <button type="button" id="decreaseTickets">-</button>
+                    <input type="number" name="num_tickets" id="numTickets" min="1" value="1" required readonly>
+                    <button type="button" id="increaseTickets">+</button>
+                </div>
                 <p><b>Total Price: ₹<span id="totalPrice">0</span></b></p>
+
+
+                
+
+
+                
 
                 <button type="submit">Proceed to Payment</button>
                 
@@ -1007,6 +1061,52 @@
         this.style.display = "none"; // Hide the button
     });
 
+
+    document.addEventListener("DOMContentLoaded", function () {
+    let planType = document.getElementById("planType");
+    let numTicketsInput = document.getElementById("numTickets");
+    let totalPriceElement = document.getElementById("totalPrice");
+
+    let decreaseBtn = document.getElementById("decreaseTickets");
+    let increaseBtn = document.getElementById("increaseTickets");
+
+    let planPrices = {
+        "1": 2,  // ₹299 Plan (Minimum 10 people)
+        "2": 3   // ₹349 Plan (No restrictions)
+    };
+
+    function updateTotalPrice() {
+        let selectedPlan = planType.value;
+        let numTickets = parseInt(numTicketsInput.value);
+        let pricePerTicket = planPrices[selectedPlan] || 0;
+        totalPriceElement.innerText = numTickets * pricePerTicket;
+    }
+
+    planType.addEventListener("change", function () {
+        let selectedPlan = planType.value;
+        if (selectedPlan === "1") {
+            numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Set minimum to 10 if lower
+        } else {
+            numTicketsInput.value = 1; // Reset to 1 for ₹349 plan
+        }
+        updateTotalPrice();
+    });
+
+    increaseBtn.addEventListener("click", function () {
+        numTicketsInput.value = parseInt(numTicketsInput.value) + 1;
+        updateTotalPrice();
+    });
+
+    decreaseBtn.addEventListener("click", function () {
+        let minTickets = planType.value === "1" ? 10 : 1; // Set min dynamically
+        numTicketsInput.value = Math.max(parseInt(numTicketsInput.value) - 1, minTickets);
+        updateTotalPrice();
+    });
+
+    numTicketsInput.addEventListener("input", updateTotalPrice);
+});
+
+
         // document.getElementById("bookingForm").addEventListener("input", function() {
         //     let planType = parseInt(document.getElementById("planType").value);
         //     let numTickets = parseInt(document.getElementById("numTickets").value);
@@ -1021,25 +1121,24 @@
 
     // Define Plan Prices
     let planPrices = {
-        "1": 1,  // ₹299 Plan
-        "2": 2   // ₹349 Plan
+        "1": 299,  // ₹299 Plan
+        "2": 349   // ₹349 Plan
     };
 
-    // ✅ If ₹299 Plan is selected, set minimum tickets to 10
+    // ✅ If ₹299 Plan is selected, enforce min 10 tickets but allow increase
     if (planType === "1") {
-        numTicketsInput.min = 10;
-        if (numTicketsInput.value < 10) {
-            numTicketsInput.value = 0;  // Set to 10 if lower
-        }
+        numTicketsInput.setAttribute("min", "10"); // Ensures min is enforced
+        numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Keeps value at least 10
     } else {
-        numTicketsInput.min = 1; // Reset minimum for other plans
+        numTicketsInput.setAttribute("min", "1"); // Reset minimum for other plans
     }
 
     // ✅ Calculate Total Price
-    let numTickets = parseInt(numTicketsInput.value);
-    let totalPrice = planPrices[planType] * numTickets;
+    let numTickets = parseInt(numTicketsInput.value) || 1;
+    let totalPrice = (planPrices[planType] || 0) * numTickets;
     totalPriceElement.innerText = totalPrice;
 });
+
 
 
         let slideIndex = 0;
