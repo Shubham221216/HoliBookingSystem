@@ -518,7 +518,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Holi Ticket Booking</title>
-
+    <link rel="icon" href="../static/the_red_carpet.jpg" type="image/png">
     <style>
         /* body {
             font-family: 'Poppins', sans-serif;
@@ -901,9 +901,7 @@
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        
-    </div>
+    
     <div class="main-container">
 
         <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
@@ -1009,12 +1007,39 @@
         this.style.display = "none"; // Hide the button
     });
 
-        document.getElementById("bookingForm").addEventListener("input", function() {
-            let planType = parseInt(document.getElementById("planType").value);
-            let numTickets = parseInt(document.getElementById("numTickets").value);
-            let totalPrice = planType * numTickets;
-            document.getElementById("totalPrice").innerText = totalPrice;
-        });
+        // document.getElementById("bookingForm").addEventListener("input", function() {
+        //     let planType = parseInt(document.getElementById("planType").value);
+        //     let numTickets = parseInt(document.getElementById("numTickets").value);
+        //     let totalPrice = planType * numTickets;
+        //     document.getElementById("totalPrice").innerText = totalPrice;
+        // });
+
+        document.getElementById("bookingForm").addEventListener("input", function () {
+    let planType = document.getElementById("planType").value;
+    let numTicketsInput = document.getElementById("numTickets");
+    let totalPriceElement = document.getElementById("totalPrice");
+
+    // Define Plan Prices
+    let planPrices = {
+        "1": 1,  // ₹299 Plan
+        "2": 2   // ₹349 Plan
+    };
+
+    // ✅ If ₹299 Plan is selected, set minimum tickets to 10
+    if (planType === "1") {
+        numTicketsInput.min = 10;
+        if (numTicketsInput.value < 10) {
+            numTicketsInput.value = 0;  // Set to 10 if lower
+        }
+    } else {
+        numTicketsInput.min = 1; // Reset minimum for other plans
+    }
+
+    // ✅ Calculate Total Price
+    let numTickets = parseInt(numTicketsInput.value);
+    let totalPrice = planPrices[planType] * numTickets;
+    totalPriceElement.innerText = totalPrice;
+});
 
 
         let slideIndex = 0;

@@ -263,6 +263,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment - Holi Festival</title>
+    <link rel="icon" href="../static/the_red_carpet.jpg" type="image/png">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
@@ -311,6 +312,7 @@
 
         .payment-container {
             background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
             padding: 20px;
             border-radius: 15px;
             max-width: 90%; /* Increase max-width for mobile */
@@ -395,7 +397,8 @@
         justify-content: center;
         align-items: center;
         padding: 20px 0; /* Add some padding to the section */
-        background-color: #f9f9f9; /* Optional: Add a light background */
+        background-color: #87dae3; /* Optional: Add a light background */
+        background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
     }
 
     .verification-content {
@@ -404,6 +407,7 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
         background-color: white; /* Optional: Add a white background for the content */
+        background-color: #e9cab7; /* Optional: Add a light background */
         max-width: 600px; /* Limit the width of the content */
         width: 90%; /* ensure it is responsive */
     }
@@ -485,7 +489,7 @@
                 <h2>Verify Your Info</h2>
                 <h3>Email: {{ email }}</h3>
 
-                <h1>Name: {{ name }}</h1>
+                <h1>Name:{{ name }}</h1>
                 <h1>Your Selected Plan Type is ₹{{plan_type}}/-</h1>
 
                 </div>
