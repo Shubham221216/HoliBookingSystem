@@ -7,7 +7,7 @@ from sqlalchemy import inspect
 from datetime import timedelta
 import qrcode
 import uuid
-
+import math
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -198,10 +198,14 @@ def payment():
     # # Plan Pricing
     # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 
-    plan_prices = {"1": 1, "2": 2}  # Make the keys match the values from HTML
+    plan_prices = {"1": 299, "2": 349}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
     print(f"Amount is {session.get('amount')}")
+
+
+    rounded_price_per_ticket = math.ceil(amount/num_tickets)
+    print("Rounded amount is ")
 
     # ✅ Store multiple names in session as a list
     # names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
@@ -223,7 +227,7 @@ def payment():
         "payment_capture": "1"  # Auto capture payment
     })
 
-    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,name=name,plan_type=plan_type,num_tickets=num_tickets)
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,name=name,plan_type=plan_type,num_tickets=num_tickets,rounded_price=rounded_price_per_ticket)
 
 
 

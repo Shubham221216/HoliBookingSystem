@@ -829,8 +829,8 @@
 
         .the_red_carpet {
             border-radius: 10%;
-            height: 150px;
-            width: 150px;
+            height: 175px;
+            width: 250px;
         }
 
         .slideshow-container {
@@ -918,8 +918,8 @@
             }
 
             .the_red_carpet {
-                height: 70px;
-                width: 70px;
+                height: 100px;
+                width: 150px;
             }
 
             .slideshow-container {
@@ -1054,7 +1054,7 @@
         <a href="{{ url_for('contact') }}">Contact Us</a>
     </nav>
 
-    <script>
+    <!-- <script>
          // Show the form when button is clicked
     document.getElementById("showFormButton").addEventListener("click", function() {
         document.getElementById("bookingFormContainer").style.display = "block";
@@ -1071,8 +1071,8 @@
     let increaseBtn = document.getElementById("increaseTickets");
 
     let planPrices = {
-        "1": 2,  // ₹299 Plan (Minimum 10 people)
-        "2": 3   // ₹349 Plan (No restrictions)
+        "299": 299,  // ₹299 Plan (Minimum 10 people)
+        "349": 349   // ₹349 Plan (No restrictions)
     };
 
     function updateTotalPrice() {
@@ -1084,10 +1084,10 @@
 
     planType.addEventListener("change", function () {
         let selectedPlan = planType.value;
-        if (selectedPlan === "1") {
+        if (selectedPlan === "249") {
             numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Set minimum to 10 if lower
         } else {
-            numTicketsInput.value = 1; // Reset to 1 for ₹349 plan
+            numTicketsInput.value = 0; // Reset to 1 for ₹349 plan
         }
         updateTotalPrice();
     });
@@ -1098,7 +1098,7 @@
     });
 
     decreaseBtn.addEventListener("click", function () {
-        let minTickets = planType.value === "1" ? 10 : 1; // Set min dynamically
+        let minTickets = planType.value === "249" ? 10 : 1; // Set min dynamically
         numTicketsInput.value = Math.max(parseInt(numTicketsInput.value) - 1, minTickets);
         updateTotalPrice();
     });
@@ -1119,24 +1119,7 @@
     let numTicketsInput = document.getElementById("numTickets");
     let totalPriceElement = document.getElementById("totalPrice");
 
-    // Define Plan Prices
-    let planPrices = {
-        "1": 299,  // ₹299 Plan
-        "2": 349   // ₹349 Plan
-    };
-
-    // ✅ If ₹299 Plan is selected, enforce min 10 tickets but allow increase
-    if (planType === "1") {
-        numTicketsInput.setAttribute("min", "10"); // Ensures min is enforced
-        numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Keeps value at least 10
-    } else {
-        numTicketsInput.setAttribute("min", "1"); // Reset minimum for other plans
-    }
-
-    // ✅ Calculate Total Price
-    let numTickets = parseInt(numTicketsInput.value) || 1;
-    let totalPrice = (planPrices[planType] || 0) * numTickets;
-    totalPriceElement.innerText = totalPrice;
+   
 });
 
 
@@ -1160,7 +1143,114 @@
                 navSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
-    </script>
+    </script> -->
 
+    <script>
+        // Show the form when button is clicked
+   document.getElementById("showFormButton").addEventListener("click", function() {
+       document.getElementById("bookingFormContainer").style.display = "block";
+       this.style.display = "none"; // Hide the button
+   });
+
+
+   document.addEventListener("DOMContentLoaded", function () {
+   let planType = document.getElementById("planType");
+   let numTicketsInput = document.getElementById("numTickets");
+   let totalPriceElement = document.getElementById("totalPrice");
+
+   let decreaseBtn = document.getElementById("decreaseTickets");
+   let increaseBtn = document.getElementById("increaseTickets");
+
+   let planPrices = {
+       "1": 299,  // ₹299 Plan (Minimum 10 people)
+       "2": 349   // ₹349 Plan (No restrictions)
+   };
+
+   function updateTotalPrice() {
+       let selectedPlan = planType.value;
+       let numTickets = parseInt(numTicketsInput.value);
+       let pricePerTicket = planPrices[selectedPlan] || 0;
+       totalPriceElement.innerText = numTickets * pricePerTicket;
+   }
+
+   planType.addEventListener("change", function () {
+       let selectedPlan = planType.value;
+       if (selectedPlan === "1") {
+           numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Set minimum to 10 if lower
+       } else {
+           numTicketsInput.value = 1; // Reset to 1 for ₹349 plan
+       }
+       updateTotalPrice();
+   });
+
+   increaseBtn.addEventListener("click", function () {
+       numTicketsInput.value = parseInt(numTicketsInput.value) + 1;
+       updateTotalPrice();
+   });
+
+   decreaseBtn.addEventListener("click", function () {
+       let minTickets = planType.value === "1" ? 10 : 1; // Set min dynamically
+       numTicketsInput.value = Math.max(parseInt(numTicketsInput.value) - 1, minTickets);
+       updateTotalPrice();
+   });
+
+   numTicketsInput.addEventListener("input", updateTotalPrice);
+});
+
+
+       // document.getElementById("bookingForm").addEventListener("input", function() {
+       //     let planType = parseInt(document.getElementById("planType").value);
+       //     let numTickets = parseInt(document.getElementById("numTickets").value);
+       //     let totalPrice = planType * numTickets;
+       //     document.getElementById("totalPrice").innerText = totalPrice;
+       // });
+
+       document.getElementById("bookingForm").addEventListener("input", function () {
+   let planType = document.getElementById("planType").value;
+   let numTicketsInput = document.getElementById("numTickets");
+   let totalPriceElement = document.getElementById("totalPrice");
+
+   // Define Plan Prices
+   let planPrices = {
+       "1": 299,  // ₹299 Plan
+       "2": 349   // ₹349 Plan
+   };
+
+   // ✅ If ₹299 Plan is selected, enforce min 10 tickets but allow increase
+   if (planType === "1") {
+       numTicketsInput.setAttribute("min", "10"); // Ensures min is enforced
+       numTicketsInput.value = Math.max(numTicketsInput.value, 10); // Keeps value at least 10
+   } else {
+       numTicketsInput.setAttribute("min", "1"); // Reset minimum for other plans
+   }
+
+   // ✅ Calculate Total Price
+   let numTickets = parseInt(numTicketsInput.value) || 1;
+   let totalPrice = (planPrices[planType] || 0) * numTickets;
+   totalPriceElement.innerText = totalPrice;
+});
+
+
+
+       let slideIndex = 0;
+       function showSlides() {
+           let slides = document.querySelectorAll(".slide");
+           slides.forEach((slide, index) => {
+               slide.style.display = "none";
+           });
+           slideIndex++;
+           if (slideIndex > slides.length) { slideIndex = 1; }
+           slides[slideIndex - 1].style.display = "block";
+           setTimeout(showSlides, 3000);
+       }
+       showSlides();
+
+       document.getElementById('nav-section-button').addEventListener('click', function() {
+           const navSection = document.getElementById('nav-section');
+           if (navSection) {
+               navSection.scrollIntoView({ behavior: 'smooth' });
+           }
+       });
+   </script>
 </body>
 </html>

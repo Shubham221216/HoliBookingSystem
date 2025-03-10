@@ -323,7 +323,7 @@
         }
 
         h1 {
-            color: #ff5733;
+            color: white;
             font-size: 24px;
         }
 
@@ -446,6 +446,12 @@
         margin-right: 5px;
     }
 
+    .the_red_carpet {
+        border-radius: 10%;
+        height: 175px;
+        width: 250px;
+    }
+
     @media (max-width: 480px) {
         .verification-content {
             padding: 20px;
@@ -471,6 +477,7 @@
     <div class="splash splash6"></div>
 
     <div class="payment-container">
+        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
         <h1>🎨 Holination - Payment 🎭</h1>
         <h3 style="color: black;">🥳 We Create.....You Celebrate 🥳</h3>
 
@@ -490,13 +497,13 @@
                 <h3>Email: {{ email }}</h3>
 
                 <h1>Name:{{ name }}</h1>
-                <h1>Your Selected Plan Type is ₹{{plan_type}}/-</h1>
+                <h1>Your Selected Plan Type is {{plan_type}} which costs ₹{{rounded_price }}/-</h1>
 
                 </div>
                 
         </section>
-        <h3>Pay Here</h3>
-                <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button>
+        
+        <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button>
             
 
     </div>
