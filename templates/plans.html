@@ -1,45 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select a Plan</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .plan-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-        .plan { border: 2px solid #333; padding: 20px; width: 200px; cursor: pointer; }
-        .plan:hover { background: #f0f0f0; }
-    </style>
-</head>
-<body>
-    <h2>Select a Plan for {{ num_tickets }} Tickets</h2>
-    
-    <form action="{{ url_for('plan') }}" method="POST">
-        <input type="hidden" name="num_tickets" value="{{ num_tickets }}">
-        <input type="hidden" name="email" value="{{ email }}">
-        <h1>Number of tickets are:-{{num_tickets}}</h1>
-        
-        
-
-        <div class="plan-container">
-            <label class="plan">
-                <input type="radio" name="plan_type" value="Plan 1" required>
-                <strong>Plan 1</strong> - ₹299 per ticket
-            </label>
-            <label class="plan">
-                <input type="radio" name="plan_type" value="Plan 2">
-                <strong>Plan 2</strong> - ₹499 per ticket
-            </label>
-            <label class="plan">
-                <input type="radio" name="plan_type" value="Plan 3">
-                <strong>Plan 3</strong> - ₹799 per ticket
-            </label>
-        </div>
-
-        <button type="submit">Proceed to Payment</button>
-    </form>
-</body>
-</html> -->
+<!-- 
 
 
 
@@ -235,7 +194,7 @@
     <div class="color-splash splash3"></div>
     <div class="color-splash splash4"></div>
     <div class="color-splash splash5"></div>
-    <div class="color-splash splash6"></div> -->
+    <div class="color-splash splash6"></div> 
 
     <div class="container">
         <h2>🎉 Select a Holi Plan for {{ num_tickets }} Tickets 🎨</h2>
@@ -255,13 +214,233 @@
                 <label class="plan">
                     <input type="radio" name="plan_type" value="Plan 2">
                     <strong>Plan 2</strong>
-                    ₹499 per ticket
+                    ₹349 per ticket
                 </label>
 
-                <label class="plan">
+                 <label class="plan">
                     <input type="radio" name="plan_type" value="Plan 3">
                     <strong>Plan 3</strong>
                     ₹799 per ticket
+                </label> 
+            </div>
+
+            <button type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Holi Plan</title>
+    <style>
+        /* Holi-Themed Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: url('{{ url_for("static", filename="holi_background.jpg") }}') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Transparent Overlay for better readability */
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animated Floating Colors */
+        .color-splash {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('{{ url_for("static", filename="color_splash-removebg-preview.png") }}') no-repeat center center/contain;
+            animation: burst 3s infinite ease-in-out;
+        }
+        .splash1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .splash2 { top: 40%; right: 10%; animation-delay: 1.5s; }
+        .splash3 { bottom: 10%; left: 15%; animation-delay: 3s; }
+        .splash4 { bottom: 10%; left: 15%; animation-delay: 3s; }
+        .splash5 { bottom: 10%; left: 15%; animation-delay: 3s; }
+        .splash6 { bottom: 10%; left: 15%; animation-delay: 3s; }
+
+        @keyframes burst {
+            0% { transform: scale(0.5); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.5); opacity: 0.8; }
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 50px 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff5733, #ffcc33);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #ffcc33;
+        }
+
+        /* Plans Layout */
+        .plan-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Plan Cards */
+        .plan {
+            background: rgba(212, 143, 38, 0.9);
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-align: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .plan:hover {
+            background: linear-gradient(45deg, #ff5733, #ffcc33);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Highlight effect inside plan */
+        .plan::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0%;
+            height: 0%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.5s;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .plan:hover::before {
+            width: 250%;
+            height: 250%;
+        }
+
+        strong {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Add border to the selected plan */
+        input[type="radio"]:checked + strong {
+            color: #04f6a9;
+        }
+
+        input[type="radio"]:checked + strong::after {
+            content: "✔";
+            margin-left: 5px;
+            color: #04f6a9;
+        }
+
+        input[type="radio"]:checked + strong + span {
+            font-weight: bold;
+        }
+
+        /* Add border to the selected plan box */
+        input[type="radio"]:checked + strong + span + .plan {
+            border: 3px solid #ffcc33;
+            box-shadow: 0px 0px 15px #ffcc33;
+        }
+
+        /* Button */
+        button {
+            background: linear-gradient(45deg, #ff5733, #ffcc33);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            margin-top: 20px;
+            width: 250px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #e64c23, #ffbf00);
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .plan-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <h2>🎉 Select a Holi Plan for {{ num_tickets }} Tickets 🎨</h2>
+        <h1>Number of Tickets: {{ num_tickets }}</h1>
+
+        <form action="{{ url_for('plan') }}" method="POST">
+            <input type="hidden" name="num_tickets" value="{{ num_tickets }}">
+            <input type="hidden" name="email" value="{{ email }}">
+
+            <div class="plan-container">
+                <label class="plan {% if num_tickets < 10 %}disabled{% endif %}">
+                    <input type="radio" name="plan_type" value="Plan 1" required {% if num_tickets < 10 %}disabled{% endif %}>
+                    <strong>Plan 1</strong>
+                    ₹299 per ticket
+                </label>
+
+                <label class="plan">
+                    <input type="radio" name="plan_type" value="Plan 2">
+                    <strong>Plan 2</strong>
+                    ₹349 per ticket
                 </label>
             </div>
 

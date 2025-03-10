@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text  # Import text function
 import razorpay
 from flask_mail import Mail, Message
 from sqlalchemy import inspect
 from datetime import timedelta
-
+import qrcode
+import uuid
 
 
 app = Flask(__name__)
@@ -115,6 +116,9 @@ def index():
 
 @app.route('/book', methods=['GET', 'POST'])
 def book():
+
+    print("This is book() function")
+
     if request.method == 'POST':
         num_tickets = int(request.form['num_tickets'])
 
@@ -134,33 +138,34 @@ def book():
 
 
 
-# @app.route('/plan',methods=['POST'])
+
+
+# @app.route('/plan', methods=['POST'])
 # def plan():
-#     email = request.form.get('email', 'Unknown')  # Use `.get()` to prevent errors
-#     session['email'] = email  # Store in session
-#     print(f"Email stored in session: {session.get('email')}")  # Debugging
 
-#     plan_type = request.form.get('plan_type', 'Plan 1')  # Default Plan 1
-#     session['plan_type'] = plan_type
-#     print(f"Plan type is {session.get('plan_type')}")
+#     print("This is plan() function")
 
-    
+#     email = request.form.get('email', 'Unknown')  
+#     session['email'] = email  # Store email in session
+
+#     plan_type = request.form.get('plan_type')  
+
+#     if plan_type not in ["Plan 1", "Plan 2", "Plan 3"]:
+#         return "Invalid Plan Selected!", 400  # Handle invalid plan selection
+
+#     session['plan_type'] = plan_type  # Store plan type in session
 #     num_tickets = int(session.get('num_tickets', 1))
 
 #     # Plan Pricing
-#     plan_prices = {"Plan 1": 299, "Plan 2": 499, "Plan 3": 799}
-    
+#     plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 #     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
-#     session['amount'] = amount
+#     session['amount'] = amount  # Store amount in session
+
+#     print(f"Plan Type Stored in Session: {session.get('plan_type')}")
+#     print(f"Amount Stored in Session: {session.get('amount')}")
 
 
-#     # ✅ Store multiple names in session as a list
-#     names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
-#     session['names'] = names  # Store names in session
-#     print(f"Names stored in session: {session.get('names')}")  # Debugging
-
-#     print("This is payment() function")
-
+#     # Create Razorpay order for LIVE mode
 #     order = razorpay_client.order.create({
 #         "amount": amount * 100,  # Convert to paisa
 #         "currency": "INR",
@@ -168,75 +173,46 @@ def book():
 #     })
 
 
-#     return render_template('booking.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,names=names,plan_type=plan_type,num_tickets=num_tickets)
-
-
-
-@app.route('/plan', methods=['POST'])
-def plan():
-    email = request.form.get('email', 'Unknown')  
-    session['email'] = email  # Store email in session
-
-    plan_type = request.form.get('plan_type')  
-
-    if plan_type not in ["Plan 1", "Plan 2", "Plan 3"]:
-        return "Invalid Plan Selected!", 400  # Handle invalid plan selection
-
-    session['plan_type'] = plan_type  # Store plan type in session
-    num_tickets = int(session.get('num_tickets', 1))
-
-    # Plan Pricing
-    plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
-    amount = num_tickets * plan_prices[plan_type]  # Calculate total price
-    session['amount'] = amount  # Store amount in session
-
-    print(f"Plan Type Stored in Session: {session.get('plan_type')}")
-    print(f"Amount Stored in Session: {session.get('amount')}")
-
-
-    # Create Razorpay order for LIVE mode
-    order = razorpay_client.order.create({
-        "amount": amount * 100,  # Convert to paisa
-        "currency": "INR",
-        "payment_capture": "1"  # Auto capture payment
-    })
-
-
-    return render_template('booking.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,plan_type=plan_type,num_tickets=num_tickets)
-
-
-
-
+#     return render_template('booking.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,plan_type=plan_type,num_tickets=num_tickets)
 
 
 @app.route('/payment', methods=['POST'])
 def payment():
+
+    print("This is payment() function")
+
     email = request.form.get('email', 'Unknown')  # Use `.get()` to prevent errors
     session['email'] = email  # Store in session
     print(f"Email stored in session: {session.get('email')}")  # Debugging
 
-    plan_type = request.form.get('plan_type', 'Plan 1')  # Default Plan 1
+    plan_type = request.form.get('plan_type', 'Unknown')  # Default Plan 1
     session['plan_type'] = plan_type
     print(f"Plan type is {session.get('plan_type')}")
-    num_tickets = int(session.get('num_tickets', 1))
 
-    # Plan Pricing
-    plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
-    
+
+
+    num_tickets = int(request.form.get('num_tickets', 0))
+    session['num_tickets'] = num_tickets  
+    print(f"Number of tickets: {num_tickets}")
+
+    # # Plan Pricing
+    # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
+
+    plan_prices = {"1": 1, "2": 2}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
-
+    print(f"Amount is {session.get('amount')}")
 
     # ✅ Store multiple names in session as a list
-    names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
-    session['names'] = names  # Store names in session
-    print(f"Names stored in session: {session.get('names')}")  # Debugging
+    # names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
+    # session['names'] = names  # Store names in session
 
-    print("This is payment() function")
+    name = request.form.get('name','Unknown')
+    session['name']=name
+    print(f"Names stored in session: {session.get('name')}")  # Debugging
 
 
     
-
     # amount = num_tickets * 1 # ₹500 per ticket
     # session['amount'] = amount
 
@@ -247,21 +223,37 @@ def payment():
         "payment_capture": "1"  # Auto capture payment
     })
 
-    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,names=names,plan_type=plan_type,num_tickets=num_tickets)
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,name=name,plan_type=plan_type,num_tickets=num_tickets)
 
 
 
 @app.route('/payment_success', methods=['POST'])
 def payment_success():
+    
+    print("This is payment_success() function")
+
     email = session.get('email','Unknown')
     print(f"Retrieved Email in /payment_success: {email}")  # Debugging
-    print("This is payment_success() function")
-    names = session.get('names', [])
+    
+    names = session.get('name', 'Unknown')
+    session['name'] = names
+    print(f"Names stored in session: {session.get('name')}")  # Debugging
+
     amount = session.get('amount', 0)
+    session['amount'] =  amount
+    print(f"Amount stored in session: {session.get('amount')}")  # Debugging
+
+
     num_tickets = session.get('num_tickets', 0)
-    plan_type = session.get('plan_type', 'Plan 1')
+    session['num_tickets'] = num_tickets
+    print(f"Number Tickets stored in session: {session.get('num_tickets')}")  # Debugging
 
 
+    plan_type = session.get('plan_type', 'Unknown')
+    session['plan_type'] = num_tickets
+    print(f"Plan Type stored in session: {session.get('plan_type')}")  # Debugging
+
+   
 
     # Get Razorpay Payment Details from frontend
     payment_id = request.form.get('razorpay_payment_id')
@@ -299,7 +291,7 @@ def payment_success():
         # ✅ Send invoice email to user
         send_invoice_email(email, names, amount, payment_id,plan_type)
 
-        return render_template('success.html', email=email,names=names,plan_type=plan_type)
+        return render_template('success.html', email=email, names=names, plan_type=plan_type)
 
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
@@ -307,30 +299,30 @@ def payment_success():
 
 @app.route('/success')
 def success():
+    print("This is success() function")
     email = session.get('email','Unknown')
-    print(f"Retrieved Email in /payment_success: {email}")  # Debugging
+    print(f"Retrieved Email : {email}")  # Debugging
 
-    names = session.get('names', [])  # Retrieve names
-    print(f"Retrieved Names in /success: {names}")  # Debugging
+    names = session.get('names', 'Unknown')  # Retrieve names
+    print(f"Retrieved Names : {names}")  # Debugging
 
     plan_type = session.get('plan_type','Unknown')
     print(f'Plan Type is {plan_type}')
 
-    print("This is payment_success() function")
+    
     return render_template('success.html', email=email,names=names,plan_type=plan_type)
 
 
 def send_invoice_email(email, names, amount, payment_id,plan_type):
     subject = "Your Booking Invoice"
     body = f"""
-    Hello,
+    Hello {names},
 
     Thank you for your booking. Here are your details:
     
-    Plan: {plan_type}
+    Plan Type: {plan_type}
 
-    Names:
-    {', '.join(names)}
+    Names:{names}
 
     Total Amount Paid: ₹{amount}
     Payment ID: {payment_id}

@@ -281,7 +281,7 @@
 </html> -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -306,6 +306,7 @@
             display: flex; /* Use flexbox */
             flex-wrap: wrap; /* Allow wrapping on small screens */
             justify-content: center; /* Center items */
+            
         }
 
         nav a {
@@ -393,23 +394,73 @@
         .booking-form button:hover {
             background: #e84118;
         }
+
+        .plan-info {
+        background: rgba(255, 255, 255, 0.9);
+        background: linear-gradient(to right,rgb(255, 172, 17), rgba(239, 239, 17, 0.989) );
+        padding: 15px;
+        border-radius: 10px;
+        max-width: 400px;
+        margin: 20px auto;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+    .plan-info-349{
+        background: linear-gradient(to right, rgba(239, 17, 202, 0.989), rgb(255, 172, 17));
+    }
+
+    .plan-info h3 {
+        
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .plan-info p {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px 0;
+        font-weight: bold;
+    }
+
+    .plan-299 {
+        /* background: rgba(255, 165, 0, 0.2); */
+        color: white;
+    }
+
+    
+
+    .the_red_carpet{
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+    }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="{{ url_for('about') }}">About Us</a>
-        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
-        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
-        <a href="{{ url_for('contact') }}">Contact Us</a>
-    </nav>
+   <img src="../static/the_red_carpet.jpeg" alt="" class="the_red_carpet">
+   <img src="../static/" alt="">
 
-    <h2>🎉 Welcome to the Grand Holi Festival 🎨</h2>
+    <h2>🎉 Welcome to the Grand Holi Festival of <span style="color: red;">Holination</span> 🎨</h2>
     <p>Join us in celebrating colors, joy, and togetherness! Book your tickets now!</p>
+    <h2 style="color: black;">🥳 We Create.....You Celebrate 🥳</h2>
+
+    <h2 >🎟️ Ticket Pricing & Plans</h2>
+    <div class="plan-info">
+        
+        <p class="plan-299" style="font-size: 25px;"><strong >₹299/- Plan:</strong> Requires minimum <b>10 people</b></p>
+        
+    </div>
+
+    <div class="plan-info plan-info-349">
+        
+        <p class="plan-349" style="font-size: 30px;"><strong>₹349/- Plan:</strong> No restrictions </p>
+    </div>
 
     <div class="booking-form">
         <form action="{{ url_for('book') }}" method="POST">
-            <label for="num_tickets">Number of Tickets:</label>
+            <label for="num_tickets" style="font-size: 20px;">Enter Number of Tickets:</label>
             <input type="number" name="num_tickets" min="1" max="10" required>
             <button type="submit">Proceed</button>
         </form>
@@ -434,6 +485,14 @@
         </div>
     </div>
 
+
+    <nav>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+
     <script>
         let slideIndex = 0;
         function showSlides() {
@@ -447,6 +506,536 @@
             setTimeout(showSlides, 3000);
         }
         showSlides();
+    </script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holi Ticket Booking</title>
+
+    <style>
+        /* body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        nav a:hover {
+            background: #ff9a9e;
+            border-radius: 5px;
+            padding: 10px 25px;
+        }
+         
+        /* nav#nav-section {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 100; 
+        }
+
+        nav#nav-section a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        nav#nav-section a:hover {
+            background: #ff9a9e;
+            border-radius: 5px;
+            padding: 10px 25px;
+        } 
+
+        .booking-form {
+            
+            
+            background: linear-gradient(
+            to right,
+            #800080, 
+            #ff69b4, 
+            #800080  
+        );
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .booking-form label {
+            font-size: 16px;
+            color: #444;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .booking-form input, .booking-form select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .booking-form button {
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .booking-form button:hover {
+            background: #e84118;
+        }
+
+        .plan-info {
+            background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .plan-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .plan-info p {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .plan-299 {
+            color: white;
+        }
+
+        .available-tickets {
+            font-weight: bold;
+            color: #444;
+        }
+        .button{
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        .book_button{
+            padding: 20px 70px ;
+            border-radius: 30px;
+            font-size: 20px;
+            background: linear-gradient(
+                to right,
+                rgba(239, 40, 206, 0.6),  
+                rgb(236, 51, 172),        
+                rgb(228, 3, 172)        
+                );
+
+            color: white;
+            }
+            
+
+
+        .event-button{
+            background: white;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .the_red_carpet{
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+    }
+
+
+            Slideshow Container
+            .slideshow-container {
+            position: relative;
+            max-width: 90%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .active-slide {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        } */
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            /* background: linear-gradient(to right, #ff9a9e, #fad0c4); */
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        .main-container {
+            background: url('../static/index_background2.jpg');
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-position: center; /* Center the image horizontally and vertically */
+            background-size: contain; /* Scale the image to fit within the container, preserving aspect ratio */
+            background-size: cover;
+            margin-bottom: 20px;
+            
+        }
+
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        nav a:hover {
+            background: #ff9a9e;
+            border-radius: 5px;
+            padding: 10px 25px;
+        }
+
+        .booking-form {
+            /* background: linear-gradient(to right, #800080, #ff69b4, #800080); */
+            background: url('../static/bgcolor.jpeg');
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 20px auto;
+            
+        }
+
+        .booking-form input, .booking-form select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .booking-form button {
+            width: 90%;
+            background: #ff4757;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .plan-info {
+            background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .book_button {
+            padding: 15px 50px;
+            border-radius: 30px;
+            font-size: 18px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            background: linear-gradient(to right, rgba(239, 40, 206, 0.6), rgb(236, 51, 172), rgb(228, 3, 172));
+            color: white;
+        }
+
+        .the_red_carpet {
+            border-radius: 10%;
+            height: 150px;
+            width: 150px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 90%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .booking-form {
+                width: 90%;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .book_button {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .the_red_carpet {
+                height: 70px;
+                width: 70px;
+            }
+
+            .slideshow-container {
+                width: 85%;
+            }
+
+            .slide img {
+                width: 100%;
+            }
+
+            .plan-info{
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        
+    </div>
+    <div class="main-container">
+
+        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
+
+        <h2>🎉 Welcome to the Grand Holi Festival of <span style="color: red;">Holination</span> 🎨</h2>
+        <p>Join us in celebrating colors, joy, and togetherness! Book your tickets now!</p>
+        
+
+        <h2>🎟️ Ticket Pricing & Plans</h2>
+        <div class="plan-info">
+            <p class="plan-299" style="font-size: 25px; color: white;"><strong>₹299/- Plan:</strong> Requires minimum <b>10 people</b></p>
+            <p style="font-size: 20px;">(per person)</p>
+        </div>
+        <div class="plan-info" style="background: linear-gradient(to right, rgba(239, 17, 202, 0.989), rgb(255, 172, 17));">
+            <p class="plan-349" style="font-size: 25px; color:white"><strong>₹349/- Plan:</strong> No restrictions</p>
+            <p style="font-size: 20px;">(per person)</p>
+        </div>
+
+
+        <div class="button">
+            <!-- Book Tickets Button -->
+        <button id="showFormButton" class="book_button">🎟️ Book Tickets Now</button>
+        <!-- Book Tickets Button -->
+        <button id="#nav-section-button" class="book_button event-button" style="margin-bottom: 10px;">View Event Details</button>
+        
+        </div>
+        
+
+        <!-- ✅ Complete Booking Form -->
+        <div class="booking-form" id="bookingFormContainer" style="display: none;">
+            <form id="bookingForm" action="{{ url_for('payment') }}" method="POST"  >
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" name="phone" required>
+
+                <label for="plan_type">Select Plan:</label>
+                <select name="plan_type" id="planType" required>
+                    <option value="0">Select</option>
+                    <option value="1">₹299 Plan (Minimum 10 people)</option><!-- Change Price Here-->
+                    <option value="2">₹349 Plan (No restrictions)</option><!-- Change Price Here-->
+                </select>
+
+                <label for="num_tickets">Number of Tickets:</label>
+                <input type="number" name="num_tickets" id="numTickets" min="1" required>
+
+                <p><b>Total Price: ₹<span id="totalPrice">0</span></b></p>
+
+                <button type="submit">Proceed to Payment</button>
+                
+            </form>
+            <p class="available-tickets" style="margin-bottom: 20px;">Available Tickets: {{ available_tickets }}</p>
+        </div>
+    </div>
+    <div class="slideshow-container">
+        <div class="slide active-slide">
+            <img src="{{ url_for('static', filename='s1.jpg') }}" alt="Holi Festival Image 1">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s2.jpg') }}" alt="Holi Festival Image 2">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s3.jpg') }}" alt="Holi Festival Image 3">
+        </div>
+         <div class="slide">
+            <img src="{{ url_for('static', filename='s4.jpg') }}" alt="Holi Festival Image 4">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s5.jpg') }}" alt="Holi Festival Image 5">
+        </div>
+        <div class="slide active-slide">
+            <img src="{{ url_for('static', filename='s6.jpg') }}" alt="Holi Festival Image 1">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s7.jpg') }}" alt="Holi Festival Image 2">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s8.jpg') }}" alt="Holi Festival Image 3">
+        </div>
+         <div class="slide">
+            <img src="{{ url_for('static', filename='s9.jpg') }}" alt="Holi Festival Image 4">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s10.jpg') }}" alt="Holi Festival Image 5">
+        </div>
+    </div>
+
+    <nav id="nav-section">
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('terms') }}">Terms & Conditions</a>
+        <a href="{{ url_for('contact') }}">Contact Us</a>
+    </nav>
+
+    <script>
+         // Show the form when button is clicked
+    document.getElementById("showFormButton").addEventListener("click", function() {
+        document.getElementById("bookingFormContainer").style.display = "block";
+        this.style.display = "none"; // Hide the button
+    });
+
+        document.getElementById("bookingForm").addEventListener("input", function() {
+            let planType = parseInt(document.getElementById("planType").value);
+            let numTickets = parseInt(document.getElementById("numTickets").value);
+            let totalPrice = planType * numTickets;
+            document.getElementById("totalPrice").innerText = totalPrice;
+        });
+
+
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.querySelectorAll(".slide");
+            slides.forEach((slide, index) => {
+                slide.style.display = "none";
+            });
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+
+        document.getElementById('nav-section-button').addEventListener('click', function() {
+            const navSection = document.getElementById('nav-section');
+            if (navSection) {
+                navSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     </script>
 
 </body>

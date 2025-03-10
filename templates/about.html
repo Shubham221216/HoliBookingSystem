@@ -78,27 +78,40 @@
 </head>
 <body>
 
-    <h2>🎉 Welcome to the Grand Holi Festival 2025! 🌈</h2>
+    <h2>🎉 Welcome to the Grand Holi Festival of <span style="color: red;">Holination</span>   🌈</h2>
 
     <div class="about-container">
+        <h2 style="color: black;">🥳 We Create.....You Celebrate 🥳</h2>
         <p><b>The Holi Festival</b> is not just about colors—it's about joy, love, and togetherness!  
         Every year, we bring thousands of people together for a vibrant celebration filled with music, dance, and cultural performances.  
-        Get ready to **dance to the beats of dhol**, **enjoy rain dance zones**, and **splash colors** with friends and family! 🎶💃🎭</p>
+        Get ready to , **enjoy rain dance zones**, and **splash colors** with friends and family! 🎶💃</p>
 
         <h3>✨ Event Highlights ✨</h3>
         <div class="highlights">
             <div class="highlight">🎶 Live DJ & Music Concerts</div>
-            <div class="highlight">🎭 Cultural Performances</div>
-            <div class="highlight">💦 Rain Dance & Color Splash</div>
+            <div class="highlight">🎭 Splash Of Colors</div>
+            <div class="highlight">💦 Rain Dance</div>
             <div class="highlight">🍱 Delicious Food Stalls</div>
-            <div class="highlight">📍 Biggest Holi Gathering in Town</div>
+            <div class="highlight">📍 Beat of "DJ Mahi"  "DJ Akki" & "DJ Shazz"</div>
         </div>
 
         <p>Join us for an **unforgettable Holi experience** and be part of the **biggest festival of colors**!  
         Grab your friends, wear your white outfits, and let’s paint the town with happiness! 🌸🎊</p>
 
+
+        <!-- <div id="contact-container"></div> -->
+
         <a href="{{ url_for('book') }}" class="cta-button">Book Your Tickets Now 🎟️</a>
     </div>
+
+
+    <script>
+        fetch('contact.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('contact-container').innerHTML = data;
+          });
+      </script>
 
 </body>
 </html>

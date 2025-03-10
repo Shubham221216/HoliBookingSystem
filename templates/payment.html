@@ -388,6 +388,74 @@
                 width: 90%;
             }
         }
+
+        .verification-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0; /* Add some padding to the section */
+        background-color: #f9f9f9; /* Optional: Add a light background */
+    }
+
+    .verification-content {
+        text-align: center;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        background-color: white; /* Optional: Add a white background for the content */
+        max-width: 600px; /* Limit the width of the content */
+        width: 90%; /* ensure it is responsive */
+    }
+
+    .verification-content h2 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .verification-content h3 {
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .verification-content h1 {
+        color: #222;
+        margin-bottom: 20px;
+        font-size: 1.8em; /* make the name and plan stand out */
+    }
+
+    .verification-content button {
+        background-color: #007bff; /* Example button color */
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .verification-content button:hover {
+        background-color: #0056b3;
+    }
+
+    .verification-content i.fas.fa-credit-card{
+        margin-right: 5px;
+    }
+
+    @media (max-width: 480px) {
+        .verification-content {
+            padding: 20px;
+        }
+
+        .verification-content h1 {
+            font-size: 1.5em;
+        }
+
+        .verification-content button {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -399,19 +467,34 @@
     <div class="splash splash6"></div>
 
     <div class="payment-container">
-        <h1>🎨 Holi Festival - Payment 🎭</h1>
+        <h1>🎨 Holination - Payment 🎭</h1>
+        <h3 style="color: black;">🥳 We Create.....You Celebrate 🥳</h3>
+
+        <!-- Verify Your Info
         <h3>Email: {{ email }}</h3>
 
-        <h3>Attendees:</h3>
-        <ul>
-            {% for name in names %}
-                <li><i class="fas fa-user"></i> {{ name }}</li>
-            {% endfor %}
-        </ul>
-        <h1>Your Selected Plan Type is:-{{plan_type}}</h1>
+        <h1>Name is {{ name }}</h1>
+        <h1>Your Selected Plan Type is ₹{{plan_type}}/-</h1>
 
-        <h3>Pay Online</h3>
-        <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}</button>
+        <h3>Pay Here</h3>
+        <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button>
+         -->
+
+         <section class="verification-section">
+            <div class="verification-content">
+                <h2>Verify Your Info</h2>
+                <h3>Email: {{ email }}</h3>
+
+                <h1>Name: {{ name }}</h1>
+                <h1>Your Selected Plan Type is ₹{{plan_type}}/-</h1>
+
+                </div>
+                
+        </section>
+        <h3>Pay Here</h3>
+                <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button>
+            
+
     </div>
 
     <script>
