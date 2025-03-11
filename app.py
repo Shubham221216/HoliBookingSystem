@@ -8,6 +8,10 @@ from datetime import timedelta
 import qrcode
 import uuid
 import math
+from flask_migrate import Migrate
+from io import BytesIO
+import base64
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -26,6 +30,8 @@ RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
 
 db = SQLAlchemy(app)
 
+
+migrate = Migrate(app, db)
 
 # Function to check database connection
 def check_db_connection():
@@ -82,6 +88,8 @@ class Booking(db.Model):
     plan_type = db.Column(db.String(50),nullable=False)
     payment_status = db.Column(db.Enum('Pending', 'Paid'), default='Pending')
     booking_count = db.Column(db.Integer, default=0)  # New Column
+    qr_code = db.Column(db.String(255), unique=True)  # New column for storing QR code
+    entry_status = db.Column(db.Enum('Not Scanned', 'Scanned'), default='Not Scanned')  # New column for scan status
 
 
 # Initialize the Database
@@ -123,11 +131,11 @@ def book():
         num_tickets = int(request.form['num_tickets'])
 
         # Calculate the total booked tickets
-        total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+        # total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
 
         # Check if total booked tickets exceed 1500
-        if total_booked + num_tickets > 1500:
-            return "Booking limit exceeded! No more tickets available."
+        # if total_booked + num_tickets > 1500:
+        #     return "Booking limit exceeded! No more tickets available."
 
         session['num_tickets'] = num_tickets
 
@@ -185,6 +193,11 @@ def payment():
     session['email'] = email  # Store in session
     print(f"Email stored in session: {session.get('email')}")  # Debugging
 
+
+    phone_number = request.form.get('phone','Unknown')
+    session['phone'] = phone_number
+    print(f"Phone Number stored in session: {session.get('phone')}")  # Debugging
+
     plan_type = request.form.get('plan_type', 'Unknown')  # Default Plan 1
     session['plan_type'] = plan_type
     print(f"Plan type is {session.get('plan_type')}")
@@ -198,7 +211,7 @@ def payment():
     # # Plan Pricing
     # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 
-    plan_prices = {"1": 299, "2": 349}  # Make the keys match the values from HTML
+    plan_prices = {"1": 1, "2": 2}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
     print(f"Amount is {session.get('amount')}")
@@ -243,6 +256,8 @@ def payment_success():
     session['name'] = names
     print(f"Names stored in session: {session.get('name')}")  # Debugging
 
+    phone = session.get('phone', 'Unknown')
+
     amount = session.get('amount', 0)
     session['amount'] =  amount
     print(f"Amount stored in session: {session.get('amount')}")  # Debugging
@@ -263,6 +278,17 @@ def payment_success():
     payment_id = request.form.get('razorpay_payment_id')
     order_id = request.form.get('razorpay_order_id')
     signature = request.form.get('razorpay_signature')
+
+
+    # Generate Unique QR Code URL
+    qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
+    
+    # Create QR Code
+    qr = qrcode.make(qr_data)
+    qr_io = BytesIO()
+    qr.save(qr_io, format="PNG")
+    qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
+
 
     # ✅ Verify Payment with Razorpay
     params_dict = {
@@ -287,15 +313,17 @@ def payment_success():
             num_tickets=num_tickets,
             total_price=amount,
             plan_type=plan_type,
-            payment_status='Paid'
+            payment_status='Paid',
+            qr_code=qr_base64,  # Store base64 QR in the database
+            entry_status='Not Scanned'
         )
         db.session.add(new_booking)
         db.session.commit()
 
         # ✅ Send invoice email to user
-        send_invoice_email(email, names, amount, payment_id,plan_type)
+        send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
 
-        return render_template('success.html', email=email, names=names, plan_type=plan_type)
+        return render_template('success.html', email=email, names=names, plan_type=plan_type,qr_base64=qr_base64)
 
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
@@ -317,7 +345,28 @@ def success():
     return render_template('success.html', email=email,names=names,plan_type=plan_type)
 
 
-def send_invoice_email(email, names, amount, payment_id,plan_type):
+
+
+@app.route('/verify_qr/<string:qr_code>', methods=['GET'])
+def verify_qr(qr_code):
+    # Search for the QR Code in the database
+    booking = Booking.query.filter_by(qr_code=qr_code).first()
+
+    if not booking:
+        return "❌ Invalid QR Code!", 404
+
+    if booking.entry_status == 'Scanned':
+        return "🚫 This QR Code has already been used for entry!", 403
+
+    # Update the entry status
+    booking.entry_status = 'Scanned'
+    db.session.commit()
+
+    return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
+
+
+
+def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_code):
     subject = "Your Booking Invoice"
     body = f"""
     Hello {names},
@@ -328,12 +377,25 @@ def send_invoice_email(email, names, amount, payment_id,plan_type):
 
     Names:{names}
 
+    Email:{email}
+
+    Phone:{phone}
+
+    Number of Tickets: {num_tickets}
+
     Total Amount Paid: ₹{amount}
+
+    Scan the QR code below at the event entry.
+
     Payment ID: {payment_id}
 
     Best regards,
     Your Company Name
     """
+
+    # Attach QR Code as an image
+    qr_img = base64.b64decode(qr_code)
+    msg.attach("qr_code.png", "image/png", qr_img)
 
     msg = Message(subject, recipients=[email])
     msg.body = body

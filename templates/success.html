@@ -7,12 +7,13 @@
 <body>
     
     <h2>🎉 Payment Successful!</h2>
-    <p>Tickets have been booked successfully.</p>
-    <p>A confirmation has been sent to <strong>{{ email }}</strong></p>
-    <!-- <ul>
-        {% for name in names %}
-            <li>{{ name }}</li>
-        {% endfor %}
-    </ul>    -->
+    <p>Thank you for booking, <b>{{ name }}</b>!</p>
+    <p>Your tickets for the <b>{{ plan_type }}</b> plan have been confirmed.</p>
+
+    <h3>Scan this QR code at entry:</h3>
+    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" width="250">
+
+    <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>
+
 </body>
 </html>

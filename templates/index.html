@@ -735,7 +735,7 @@
         }
 
         .main-container {
-            background: url('../static/index_background2.jpg');
+            background: url('../static/index_background4.png');
             background-repeat: no-repeat; /* Prevent the image from repeating */
             background-position: center; /* Center the image horizontally and vertically */
             background-size: contain; /* Scale the image to fit within the container, preserving aspect ratio */
@@ -799,7 +799,20 @@
         }
 
         .plan-info {
-            background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
+                /* background: radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.7), transparent),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 102, 0.7), transparent),
+                radial-gradient(circle at 50% 70%, rgba(144, 238, 144, 0.7), transparent),
+                radial-gradient(circle at 90% 60%, rgba(173, 216, 230, 0.7), transparent),
+                radial-gradient(circle at 10% 80%, rgba(221, 160, 221, 0.7), transparent),
+                white; */
+
+                background: radial-gradient(circle at 15% 20%, rgba(255, 105, 180, 0.6), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 165, 0, 0.6), transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 191, 255, 0.6), transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(50, 205, 50, 0.6), transparent 50%),
+                radial-gradient(circle at 25% 60%, rgba(186, 85, 211, 0.6), transparent 50%),
+                white;
+                
             padding: 15px;
             border-radius: 10px;
             max-width: 400px;
@@ -854,44 +867,44 @@
         }
 
         .ticket-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
 
-.ticket-selector button {
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
+        .ticket-selector button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
 
-.ticket-selector button:hover {
-    background-color: #e84118;
-    transform: scale(1.1);
-}
+        .ticket-selector button:hover {
+            background-color: #e84118;
+            transform: scale(1.1);
+        }
 
-.ticket-selector input {
-    width: 60px;
-    text-align: center;
-    font-size: 18px;
-    padding: 10px;
-    border: 2px solid #ff4757;
-    border-radius: 5px;
-    font-weight: bold;
-}
+        .ticket-selector input {
+            width: 60px;
+            text-align: center;
+            font-size: 18px;
+            padding: 10px;
+            border: 2px solid #ff4757;
+            border-radius: 5px;
+            font-weight: bold;
+        }
 
 
         
 
-        @media (max-width: 768px) {
+        /* @media (max-width: 768px) {
             nav {
                 flex-direction: column;
                 text-align: center;
@@ -939,26 +952,105 @@
                 color: yellow;
                 background-color: green;
             }
-        }
+        } */
+        @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        padding: 10px;
+        width: 85%;
+        text-align: center;
+    }
+
+    .main-container {
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .booking-form, .plan-info {
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .button {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book_button {
+        width: 90%;
+        padding: 12px;
+    }
+
+    .the_red_carpet {
+        height: auto;
+        max-width: 80%;
+    }
+
+    .slideshow-container {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .slide img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .ticket-selector {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+.text-sangli{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
     </style>
 </head>
 <body>
     
     <div class="main-container">
 
-        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
+        <img src="../static/Holination_logo.png" alt="" class="the_red_carpet">
 
-        <h2>🎉 Welcome to the Grand Holi Festival of <span style="color: red;">Holination</span> 🎨</h2>
+        
+        <div class="text-sangli">
+            <!-- <button>18 March 2025 • Sangli's biggest festival of colors</button> -->
+             <p style="font-weight: bolder; font-size: 20px;">18 March 2025 • Sangli's biggest festival of colors</p>
+        </div>
+        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
+        
+
+        <!-- <h2>🎉 Welcome to the Grand Holi Festival of <span style="color: red;">Holination</span> 🎨</h2> -->
+        <!-- <h2>🎉 Holination: Where Holi Takes on a New Dimension. 🌌🌈✨🎨</h2> -->
+
+        <h2 style="color: black;">🥳 We Create.....You Celebrate 🥳</h2>
         <p>Join us in celebrating colors, joy, and togetherness! Book your tickets now!</p>
         
 
         <h2>🎟️ Ticket Pricing & Plans</h2>
         <div class="plan-info">
-            <p class="plan-299" style="font-size: 25px; color: white;"><strong>₹299/- Plan:</strong> Requires minimum <b>10 people</b></p>
+            <p class="plan-299" style="font-size: 25px;"><strong>₹299/- Plan:</strong> Requires minimum <b>10 people</b></p>
             <p style="font-size: 20px;">(per person)</p>
         </div>
-        <div class="plan-info" style="background: linear-gradient(to right, rgba(239, 17, 202, 0.989), rgb(255, 172, 17));">
-            <p class="plan-349" style="font-size: 25px; color:white"><strong>₹349/- Plan:</strong> No restrictions</p>
+        <div class="plan-info" style=" background: radial-gradient(circle at 15% 20%, rgba(255, 94, 0, 0.8), transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(255, 0, 144, 0.8), transparent 50%),
+        radial-gradient(circle at 50% 70%, rgba(0, 204, 255, 0.8), transparent 50%),
+        radial-gradient(circle at 30% 80%, rgba(0, 255, 127, 0.8), transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 0, 0.8), transparent 50%),
+        white;">
+            <p class="plan-349" style="font-size: 25px;"><strong>₹349/- Plan:</strong> No restrictions</p>
             <p style="font-size: 20px;">(per person)</p>
         </div>
 
@@ -1002,16 +1094,10 @@
                 </div>
                 <p><b>Total Price: ₹<span id="totalPrice">0</span></b></p>
 
-
-                
-
-
-                
-
                 <button type="submit">Proceed to Payment</button>
                 
             </form>
-            <p class="available-tickets" style="margin-bottom: 20px;">Available Tickets: {{ available_tickets }}</p>
+            <p class="available-tickets" style="margin-bottom: 20px; font-weight: bolder;">Tickets Available </p>
         </div>
     </div>
     <div class="slideshow-container">
@@ -1031,19 +1117,31 @@
             <img src="{{ url_for('static', filename='s5.jpg') }}" alt="Holi Festival Image 5">
         </div>
         <div class="slide active-slide">
-            <img src="{{ url_for('static', filename='s6.jpg') }}" alt="Holi Festival Image 1">
+            <img src="{{ url_for('static', filename='s6.jpg') }}" alt="Holi Festival Image 6">
         </div>
         <div class="slide">
-            <img src="{{ url_for('static', filename='s7.jpg') }}" alt="Holi Festival Image 2">
+            <img src="{{ url_for('static', filename='holi_banner.jpg') }}" alt="Holi Festival Image 7">
         </div>
         <div class="slide">
-            <img src="{{ url_for('static', filename='s8.jpg') }}" alt="Holi Festival Image 3">
+            <img src="{{ url_for('static', filename='holi_banner4.jpg') }}" alt="Holi Festival Image 8">
         </div>
          <div class="slide">
-            <img src="{{ url_for('static', filename='s9.jpg') }}" alt="Holi Festival Image 4">
+            <img src="{{ url_for('static', filename='holi_banner5.jpg') }}" alt="Holi Festival Image 9">
         </div>
         <div class="slide">
-            <img src="{{ url_for('static', filename='s10.jpg') }}" alt="Holi Festival Image 5">
+            <img src="{{ url_for('static', filename='holi_image.jpg') }}" alt="Holi Festival Image 10">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s7.jpg') }}" alt="Holi Festival Image 11">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s8.jpg') }}" alt="Holi Festival Image 12">
+        </div>
+         <div class="slide">
+            <img src="{{ url_for('static', filename='s9.jpg') }}" alt="Holi Festival Image 13">
+        </div>
+        <div class="slide">
+            <img src="{{ url_for('static', filename='s10.jpg') }}" alt="Holi Festival Image 14">
         </div>
     </div>
 
@@ -1162,8 +1260,8 @@
    let increaseBtn = document.getElementById("increaseTickets");
 
    let planPrices = {
-       "1": 299,  // ₹299 Plan (Minimum 10 people)
-       "2": 349   // ₹349 Plan (No restrictions)
+       "1": 1,  // ₹299 Plan (Minimum 10 people)
+       "2": 2   // ₹349 Plan (No restrictions)
    };
 
    function updateTotalPrice() {
