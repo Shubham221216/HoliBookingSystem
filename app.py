@@ -88,7 +88,9 @@ class Booking(db.Model):
     plan_type = db.Column(db.String(50),nullable=False)
     payment_status = db.Column(db.Enum('Pending', 'Paid'), default='Pending')
     booking_count = db.Column(db.Integer, default=0)  # New Column
-    qr_code = db.Column(db.String(255), unique=True)  # New column for storing QR code
+    # qr_code = db.Column(db.String(10000), unique=True, nullable=True)  # New column to store QR code URL
+    qr_code = db.Column(db.Text, unique=True)  # Change from String(255) to Text
+
     entry_status = db.Column(db.Enum('Not Scanned', 'Scanned'), default='Not Scanned')  # New column for scan status
 
 
@@ -341,7 +343,7 @@ def success():
     email = session.get('email','Unknown')
     print(f"Retrieved Email : {email}")  # Debugging
 
-    names = session.get('names', 'Unknown')  # Retrieve names
+    names = session.get('name', 'Unknown')  # Retrieve names
     print(f"Retrieved Names : {names}")  # Debugging
 
     plan_type = session.get('plan_type','Unknown')
