@@ -211,7 +211,7 @@ def payment():
     # # Plan Pricing
     # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 
-    plan_prices = {"1": 1, "2": 2}  # Make the keys match the values from HTML
+    plan_prices = {"1": 1, "2":2}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
     print(f"Amount is {session.get('amount')}")
@@ -317,8 +317,14 @@ def payment_success():
             qr_code=qr_base64,  # Store base64 QR in the database
             entry_status='Not Scanned'
         )
-        db.session.add(new_booking)
-        db.session.commit()
+        try:
+            db.session.add(new_booking)
+            db.session.commit()
+            print("✅ Booking saved successfully.")
+        except Exception as e:
+            db.session.rollback()  # Rollback if an error occurs
+            print("❌ Database error:", e)
+
 
         # ✅ Send invoice email to user
         send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
