@@ -398,15 +398,16 @@ def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_t
     Payment ID: {payment_id}
 
     Best regards,
-    Your Company Name
+    HoliNation
     """
-
+    msg = Message(subject, recipients=[email])
+    msg.body = body
     # Attach QR Code as an image
     qr_img = base64.b64decode(qr_code)
     msg.attach("qr_code.png", "image/png", qr_img)
 
-    msg = Message(subject, recipients=[email])
-    msg.body = body
+    
+    
 
     try:
         mail.send(msg)
