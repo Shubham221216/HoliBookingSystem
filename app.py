@@ -242,7 +242,7 @@ def payment():
         "payment_capture": "1"  # Auto capture payment
     })
 
-    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,name=name,plan_type=plan_type,num_tickets=num_tickets,rounded_price=rounded_price_per_ticket)
+    return render_template('payment.html', order_id=order['id'], amount=amount, key_id=RAZORPAY_KEY_ID,email=email,name=name,phone_number=phone_number,plan_type=plan_type,num_tickets=num_tickets,rounded_price=rounded_price_per_ticket)
 
 
 
@@ -259,6 +259,8 @@ def payment_success():
     print(f"Names stored in session: {session.get('name')}")  # Debugging
 
     phone = session.get('phone', 'Unknown')
+    session['phone'] = phone
+    print(f"Phone Stored in session")
 
     amount = session.get('amount', 0)
     session['amount'] =  amount
@@ -349,10 +351,54 @@ def success():
     plan_type = session.get('plan_type','Unknown')
     print(f'Plan Type is {plan_type}')
 
+    phone = session.get('phone', 'Unknown')
+    print(f"Phone Stored in session:{phone}")
+
+    amount = session.get('amount', 0)
+    session['amount'] =  amount
+    print(f"Amount stored in session: {session.get('amount')}")  # Debugging
+
+
+    num_tickets = session.get('num_tickets', 0)
+    session['num_tickets'] = num_tickets
+    print(f"Number Tickets stored in session: {session.get('num_tickets')}")  # Debugging
+
+    payment_id = request.form.get('razorpay_payment_id')
+    print(f"Payment Id:{payment_id}")
+
+
+    # Generate Unique QR Code URL
+    qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
     
-    return render_template('success.html', email=email,names=names,plan_type=plan_type)
+    # Create QR Code
+    qr = qrcode.make(qr_data)
+    qr_io = BytesIO()
+    qr.save(qr_io, format="PNG")
+    qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
 
 
+    
+    return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qr_base64=qr_base64)
+
+
+
+
+# @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
+# def verify_qr(qr_code):
+#     # Search for the QR Code in the database
+#     booking = Booking.query.filter_by(qr_code=qr_code).first()
+
+#     if not booking:
+#         return "❌ Invalid QR Code!", 404
+
+#     if booking.entry_status == 'Scanned':
+#         return "🚫 This QR Code has already been used for entry!", 403
+
+#     # Update the entry status
+#     booking.entry_status = 'Scanned'
+#     db.session.commit()
+
+#     return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
 
 
 @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
@@ -361,17 +407,16 @@ def verify_qr(qr_code):
     booking = Booking.query.filter_by(qr_code=qr_code).first()
 
     if not booking:
-        return "❌ Invalid QR Code!", 404
+        return render_template('verify_qr.html', status="error", message="❌ Invalid QR Code!")
 
     if booking.entry_status == 'Scanned':
-        return "🚫 This QR Code has already been used for entry!", 403
+        return render_template('verify_qr.html', status="error", message="🚫 This QR Code has already been used for entry!")
 
     # Update the entry status
     booking.entry_status = 'Scanned'
     db.session.commit()
 
-    return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
-
+    return render_template('verify_qr.html', status="success", email=booking.user_email, message="✅ Entry Successful!")
 
 
 def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_code):

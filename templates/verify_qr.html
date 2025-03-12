@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Verification</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; padding: 50px; }
+        .success { color: green; font-size: 24px; }
+        .error { color: red; font-size: 24px; }
+    </style>
+</head>
+<body>
+    {% if status == "success" %}
+        <h2 class="success">{{ message }}</h2>
+        <p>Welcome, {{ email }}! You have successfully entered the event.</p>
+    {% else %}
+        <h2 class="error">{{ message }}</h2>
+    {% endif %}
+</body>
+</html>
