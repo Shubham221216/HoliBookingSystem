@@ -339,7 +339,9 @@ def payment_success():
         # ✅ Send invoice email to user
         send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
 
-        return render_template('success.html', email=email, names=names, plan_type=plan_type,qr_base64=qr_base64)
+        # return render_template('success.html', email=email, names=names, plan_type=plan_type,qr_base64=qr_base64)
+        return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qrcode=qr_base64)
+
 
     except razorpay.errors.SignatureVerificationError:
         return "❌ Payment verification failed!", 400
@@ -384,27 +386,11 @@ def success():
 
 
     
-    return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qr_base64=qr_base64)
+    return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qrcode=qr_base64)
 
 
 
 
-# @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
-# def verify_qr(qr_code):
-#     # Search for the QR Code in the database
-#     booking = Booking.query.filter_by(qr_code=qr_code).first()
-
-#     if not booking:
-#         return "❌ Invalid QR Code!", 404
-
-#     if booking.entry_status == 'Scanned':
-#         return "🚫 This QR Code has already been used for entry!", 403
-
-#     # Update the entry status
-#     booking.entry_status = 'Scanned'
-#     db.session.commit()
-
-#     return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
 
 
 

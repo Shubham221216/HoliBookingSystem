@@ -256,7 +256,48 @@
 </html> -->
 
 
+<!-- .splash {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: url('{{ url_for("static", filename="color_splash-removebg-preview.png") }}') no-repeat center center/contain;
+    opacity: 0;
+    transform: scale(0);
+    animation: burst 2s infinite ease-out;
+}
 
+.splash1 { top: 30%; left: 15%; animation-delay: 0s; }
+.splash2 { top: 20%; right: 10%; animation-delay: 0.5s; }
+.splash3 { bottom: 25%; left: 5%; animation-delay: 1s; }
+.splash4 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
+.splash5 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
+.splash6 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
+
+@keyframes burst {
+    0% {
+        opacity: 0;
+        transform: scale(0.2) translate(0, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5) translate(calc(100px - 50%), calc(100px - 50%));
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2) translate(calc(200px - 100%), calc(200px - 100%));
+    }
+} */
+
+
+ <div class="splash splash1"></div>
+    <div class="splash splash2"></div>
+    <div class="splash splash3"></div>
+    <div class="splash splash4"></div>
+    <div class="splash splash5"></div>
+    <div class="splash splash6"></div>
+-->
+
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,53 +319,13 @@
             box-sizing: border-box;
         }
 
-        .splash {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: url('{{ url_for("static", filename="color_splash-removebg-preview.png") }}') no-repeat center center/contain;
-            opacity: 0;
-            transform: scale(0);
-            animation: burst 2s infinite ease-out;
-        }
+        
 
-        .splash1 { top: 30%; left: 15%; animation-delay: 0s; }
-        .splash2 { top: 20%; right: 10%; animation-delay: 0.5s; }
-        .splash3 { bottom: 25%; left: 5%; animation-delay: 1s; }
-        .splash4 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
-        .splash5 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
-        .splash6 { bottom: 10%; right: 20%; animation-delay: 1.5s; }
-
-        @keyframes burst {
-            0% {
-                opacity: 0;
-                transform: scale(0.2) translate(0, 0);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.5) translate(calc(100px - 50%), calc(100px - 50%));
-            }
-            100% {
-                opacity: 0;
-                transform: scale(2) translate(calc(200px - 100%), calc(200px - 100%));
-            }
-        }
-
-        /* .payment-container {
-            /* background: rgba(255, 255, 255, 0.95); 
-            background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 90%; /* Increase max-width for mobile 
-            margin: 20px auto; /* Add margin for spacing 
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 10;
-        } */
 
         /* Responsive Payment Container */
         .payment-container {
             background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
+            /* background: url('../static/inde'); */
             padding: 15px;
             border-radius: 15px;
             width: 90vw; /* Fully responsive */
@@ -373,28 +374,7 @@
             overflow: hidden;
         }
 
-        button::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: 0.6s;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-        }
-
-        button:hover::before {
-            width: 0%;
-            height: 0%;
-        }
-
-        button:hover {
-            background: linear-gradient(45deg, #e64c23, #ffbf00);
-            transform: scale(1.05);
-        }
+        
 
         @media (max-width: 450px) {
             .payment-container {
@@ -412,16 +392,7 @@
             background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202));
         }
 
-        /* .verification-content {
-            text-align: center;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow 
-            background-color: white; /* Optional: Add a white background for the content 
-            background-color: #e9cab7; /* Optional: Add a light background 
-            max-width: 600px; /* Limit the width of the content 
-            width: 90%; /* ensure it is responsive 
-        } */
+        
 
         .verification-content {
             text-align: center;
@@ -482,42 +453,26 @@
                 font-size: 1.3em;
             }
 
-            /* .verification-content button {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
+        
 
-            .logo{
-                height: 50px;
-                width: 50px;
-            } */
-
-            .splash { width: 10vw; height: 10vw; } /* Smaller splashes */
+            /* .splash { width: 10vw; height: 10vw; } Smaller splashes */
         }
 
-        /* .logo{
-            height: 175px;
-            width: 250px;
-        } */
+        
     </style>
 </head>
 <body>
-    <div class="splash splash1"></div>
-    <div class="splash splash2"></div>
-    <div class="splash splash3"></div>
-    <div class="splash splash4"></div>
-    <div class="splash splash5"></div>
-    <div class="splash splash6"></div>
     
-        <!-- <h1>🎨 Holination - Payment 🎭</h1> -->
-        <!-- <img src="../static/Holination_logo.png" alt="" class="logo"> -->
+    
+       
 
         
 
     <div class="payment-container">
         <img src="../static/Holination_logo.png" alt="" class="logo">
-        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
         <h1 style="color: black;">🥳 We Create.....You Celebrate 🥳</h1>
+        <img src="../static/the_red_carpet-removebg-preview.png" alt="" class="the_red_carpet">
+        
 
 
          <section class="verification-section">
@@ -532,6 +487,7 @@
                 
         </section>
         
+         <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button> 
         <button id="rzp-button"><i class="fas fa-credit-card"></i> Pay ₹{{ amount }}/-</button>
             
 
@@ -566,5 +522,228 @@
             e.preventDefault();
         }
     </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Holi Festival</title>
+    <link rel="icon" href="{{ url_for('static', filename='the_red_carpet.jpg') }}" type="image/png">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('{{ url_for("static", filename="drinking_bhaang.jpg") }}') no-repeat center center/cover;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .payment-container {
+            /* background: linear-gradient(to right, rgb(255, 172, 17), rgba(239, 17, 202)); */
+            background: url('../static/index_background7.jpg') no-repeat;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .verification-section {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .verification-content h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .verification-content h3 {
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .verification-content h1 {
+            color: #222;
+            font-size: 18px;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10%;
+        }
+
+        .the_red_carpet {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ff4500, #ffbf00);
+        } 
+
+
+        /* button {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px; 
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px; /* Ensures it's not too wide on large screens 
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds depth 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Adds space between icon and text 
+        }
+
+        /* Button Hover Effect 
+        button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Click Effect 
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Add Icon Styling 
+        button i {
+            font-size: 22px;
+        } */
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .verification-content h1 {
+                font-size: 16px;
+            }
+        }
+
+        /* Responsive Button */
+        /* @media (max-width: 450px) {
+            button {
+                width: 100%;
+                font-size: 16px;
+                padding: 12px;
+            }
+        } */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="payment-container">
+            <img src="{{ url_for('static', filename='Holination_logo.png') }}" alt="Holination Logo" class="logo">
+            <img src="{{ url_for('static', filename='the_red_carpet-removebg-preview.png') }}" alt="The Red Carpet" class="the_red_carpet">
+            <h1> We Create.....You Celebrate </h1>
+        </div>
+
+        <section class="verification-section">
+            <div class="verification-content">
+                <h2>Verify Your Info</h2>
+                <h3>Email: {{ email }}</h3>
+                <h1>Name: {{ name }}</h1>
+                <h1>Your Selected Plan Type: {{ plan_type }} - ₹{{ rounded_price }}/-</h1>
+            </div>
+        </section>
+
+        <button id="rzp-button"> Pay ₹{{ amount }}/-</button>
+    </div>
+
+    <script>
+        var options = {
+            "key": "{{ key_id }}",
+            "amount": "{{ amount * 100 }}",
+            "currency": "INR",
+            "name": "Holi Festival",
+            "description": "Ticket Booking",
+            "order_id": "{{ order_id }}",
+            "handler": function (response) {
+                fetch("/payment_success", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        "razorpay_payment_id": response.razorpay_payment_id,
+                        "razorpay_order_id": response.razorpay_order_id,
+                        "razorpay_signature": response.razorpay_signature
+                    })
+                }).then(response => response.text())
+                    .then(data => window.location.href = "/success")
+                    .catch(error => console.error("Payment Verification Failed", error));
+            },
+            "prefill": { "email": "{{ email }}" }
+        };
+
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+
 </body>
 </html>

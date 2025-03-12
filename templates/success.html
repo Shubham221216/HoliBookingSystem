@@ -1,19 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Successful</title>
     <link rel="icon" href="../static/the_red_carpet.jpg" type="image/png">
+    <style>
+        /* Page Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Card Layout */
+        .success-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .qr-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .qr-section img {
+            width: 180px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        /* Button Styling */
+        .home-button {
+            display: inline-block;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+            transform: scale(1.05);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 450px) {
+            .success-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .qr-section img {
+                width: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
-    
-    <h2>🎉 Payment Successful!</h2>
-    <p>Thank you for booking, <b>{{ name }}</b>!</p>
-    <p>Your tickets for the <b>{{ plan_type }}</b> plan have been confirmed.</p>
 
-    <!-- <h3>Scan this QR code at entry:</h3>
-    <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" width="250">
+    <div class="success-container">
+        <h2>🎉 Payment Successful!</h2>
+        <p>Thank you for booking, <b>{{ name }}</b>!</p>
+        <p>Your tickets for the <b>{{ plan_type }}</b> plan have been confirmed.</p>
 
-    <p><b>Note:</b> This QR Code is valid for one-time entry only.</p> -->
+        <div class="qr-section">
+            <!-- <h3>You have been provided a QR Code 𝄃𝄃𝄂𝄂𝄀</h3> -->
+            <h3>📌 Scan the QR code at entry:</h3>
+            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+             <p></p>
+            <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>
+        </div>
+
+        <a href="/" class="home-button">Go to Homepage</a>
+    </div>
 
 </body>
 </html>
