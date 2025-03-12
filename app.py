@@ -288,10 +288,13 @@ def payment_success():
     # qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
     
     # Generate a unique verification link
-    unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
+    # unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
+
+    qr_code_data = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"  # ✅ Link only to payment ID
+
 
     # Create QR Code
-    qr = qrcode.make(unique_qr_url)
+    qr = qrcode.make(qr_code_data)
     qr_io = BytesIO()
     qr.save(qr_io, format="PNG")
     qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
@@ -321,7 +324,7 @@ def payment_success():
             total_price=amount,
             plan_type=plan_type,
             payment_status='Paid',
-            qr_code=unique_qr_url,  # Store base64 QR in the database
+            qr_code=payment_id,  # ✅ Store only the payment_id
             entry_status='Not Scanned'
         )
         try:
@@ -370,11 +373,11 @@ def success():
     print(f"Payment Id:{payment_id}")
 
 
-    # Generate Unique QR Code URL
-    qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
-    
+    # Generate a unique verification link
+    unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
+
     # Create QR Code
-    qr = qrcode.make(qr_data)
+    qr = qrcode.make(unique_qr_url)
     qr_io = BytesIO()
     qr.save(qr_io, format="PNG")
     qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
