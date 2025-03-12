@@ -285,10 +285,13 @@ def payment_success():
 
 
     # Generate Unique QR Code URL
-    qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
+    # qr_data = f"Name: {names}\nEmail: {email}\nPhone: {phone}\nPlan: {plan_type}\nTickets: {num_tickets}\nAmount: {amount}\nPayment ID: {payment_id}"
     
+    # Generate a unique verification link
+    unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
+
     # Create QR Code
-    qr = qrcode.make(qr_data)
+    qr = qrcode.make(unique_qr_url)
     qr_io = BytesIO()
     qr.save(qr_io, format="PNG")
     qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
@@ -307,9 +310,9 @@ def payment_success():
         print("✅ Payment verified successfully.")
 
         # ✅ Check total booked tickets before storing the booking
-        total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
-        if total_booked + num_tickets > 1500:
-            return "❌ Booking limit exceeded! No more tickets available."
+        # total_booked = db.session.query(db.func.sum(Booking.num_tickets)).scalar() or 0
+        # if total_booked + num_tickets > 1500:
+        #     return "❌ Booking limit exceeded! No more tickets available."
 
         # ✅ Store booking details in database
         new_booking = Booking(
@@ -318,7 +321,7 @@ def payment_success():
             total_price=amount,
             plan_type=plan_type,
             payment_status='Paid',
-            qr_code=qr_base64,  # Store base64 QR in the database
+            qr_code=unique_qr_url,  # Store base64 QR in the database
             entry_status='Not Scanned'
         )
         try:
@@ -416,7 +419,7 @@ def verify_qr(qr_code):
     booking.entry_status = 'Scanned'
     db.session.commit()
 
-    return render_template('verify_qr.html', status="success", email=booking.user_email, message="✅ Entry Successful!")
+    return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
 
 
 def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_code):
