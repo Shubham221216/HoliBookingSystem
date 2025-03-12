@@ -407,8 +407,50 @@ def success():
 #     return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
 
 
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # ✅ Hardcoded admin credentials (you can store in DB)
+        if username == "holination" and password == "theredcarpet":
+            session['admin_logged_in'] = True
+            return redirect(url_for('admin_dashboard'))  # Redirect to dashboard after login
+        else:
+            return "❌ Invalid Admin Credentials!"
+
+    return render_template('admin_login.html')  # Create an admin login page
+
+
+
+
+@app.route('/admin_logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)  # Remove admin session
+    return redirect(url_for('admin_login'))
+
+
+
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+
+    bookings = Booking.query.all()
+    return render_template('admin_dashboard.html', bookings=bookings)
+
+
+
+
 @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
 def verify_qr(qr_code):
+
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))  # Redirect to admin login if not logged in
+    
     # Search for the QR Code in the database
     booking = Booking.query.filter_by(qr_code=qr_code).first()
 
