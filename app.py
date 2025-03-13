@@ -312,6 +312,9 @@ def payment_success():
         'razorpay_signature': signature
     }
 
+    session['payment_id'] = payment_id
+
+
     try:
         # 🚀 Razorpay verification (only proceed if this passes)
         razorpay_client.utility.verify_payment_signature(params_dict)
@@ -386,7 +389,7 @@ def success():
     session['num_tickets'] = num_tickets
     print(f"Number Tickets stored in session: {session.get('num_tickets')}")  # Debugging
 
-    payment_id = session.get('razorpay_payment_id')
+    payment_id = session.get('payment_id', 'Unknown')
     print(f"Payment Id:{payment_id}")
 
 
