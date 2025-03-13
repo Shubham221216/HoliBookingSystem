@@ -25,12 +25,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # # 🔑 Replace with your Razorpay API Keys
-# RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
-# RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
+RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
+RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
 
 
-RAZORPAY_KEY_ID = "rzp_live_cXy0lZ4QA7cOjC"
-RAZORPAY_KEY_SECRET = "56lL0KRLjD4gngA43btNCOoW"
+# RAZORPAY_KEY_ID = "rzp_live_cXy0lZ4QA7cOjC"
+# RAZORPAY_KEY_SECRET = "56lL0KRLjD4gngA43btNCOoW"
 
 db = SQLAlchemy(app)
 
@@ -302,6 +302,7 @@ def payment_success():
     qr_io = BytesIO()
     qr.save(qr_io, format="PNG")
     qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
+    print(f'This is base64:-{base64}')
 
 
     # ✅ Verify Payment with Razorpay
@@ -344,7 +345,17 @@ def payment_success():
         send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
 
         # return render_template('success.html', email=email, names=names, plan_type=plan_type,qr_base64=qr_base64)
-        return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qrcode=qr_base64)
+        # return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qrcode=qr_base64)
+        return jsonify({
+            "email": email,
+            "names": names,
+            "plan_type": plan_type,
+            "phone": phone,
+            "amount": amount,
+            "num_tickets": num_tickets,
+            "payment_id": payment_id,
+            "qrcode": qr_base64  # ✅ Send QR code in JSON response
+        })
 
 
     except razorpay.errors.SignatureVerificationError:
@@ -382,15 +393,27 @@ def success():
     # Generate a unique verification link
     unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
 
-    # Create QR Code
+    # # Create QR Code
     qr = qrcode.make(unique_qr_url)
     qr_io = BytesIO()
     qr.save(qr_io, format="PNG")
     qr_base64 = base64.b64encode(qr_io.getvalue()).decode('utf-8')  # Convert to base64
 
+    qr_code = request.args.get('qrcode','')
+
+    print("This is base64 in success function",qr_base64)
+
+    if not qr_code:
+        print("❌ No QR Code Found")
+    else:
+        print("✅ QR Code Found:", qr_code)
 
     
-    return render_template('success.html', email=email,names=names,plan_type=plan_type,phone=phone,amount=amount,num_tickets=num_tickets,payment_id=payment_id,qrcode=qr_base64)
+    return render_template('success.html'
+                           , email=email,names=names,plan_type=plan_type,
+                           phone=phone,amount=amount,num_tickets=num_tickets,
+                           payment_id=payment_id,qrcode=qr_base64
+                           )
 
 
 

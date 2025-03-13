@@ -105,7 +105,11 @@
         <div class="qr-section">
             <!-- <h3>You have been provided a QR Code 𝄃𝄃𝄂𝄂𝄀</h3> -->
             <h3>📌 Scan the QR code at entry:</h3>
-            <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+            {% if qrcode %}
+            <img src="data:image/png;base64,{{ qrcode }}" alt="QR Code">
+        {% else %}
+            <p>⚠️ No QR Code Generated</p>
+        {% endif %}
              <p></p>
             <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>
         </div>
