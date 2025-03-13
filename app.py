@@ -24,9 +24,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:nESoqHxQRFPlcUziHc
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-# 🔑 Replace with your Razorpay API Keys
-RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
-RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
+# # 🔑 Replace with your Razorpay API Keys
+# RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
+# RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
+
+
+RAZORPAY_KEY_ID = "rzp_live_cXy0lZ4QA7cOjC"
+RAZORPAY_KEY_SECRET = "56lL0KRLjD4gngA43btNCOoW"
 
 db = SQLAlchemy(app)
 
@@ -371,7 +375,7 @@ def success():
     session['num_tickets'] = num_tickets
     print(f"Number Tickets stored in session: {session.get('num_tickets')}")  # Debugging
 
-    payment_id = request.form.get('razorpay_payment_id')
+    payment_id = session.get('razorpay_payment_id')
     print(f"Payment Id:{payment_id}")
 
 
