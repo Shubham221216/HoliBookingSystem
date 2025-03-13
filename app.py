@@ -488,8 +488,8 @@ def verify_qr(qr_code):
     num_tickets = booking.num_tickets
 
 
-    # return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
-    return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets)
+    return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
+    # return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets)
 
 
 
