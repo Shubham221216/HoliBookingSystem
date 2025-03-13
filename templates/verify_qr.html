@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>QR Verification</title>
@@ -12,8 +12,85 @@
     {% if status == "success" %}
         <h2 class="success">{{ message }}</h2>
         <p>Welcome, {{ email }}! You have successfully entered the event.</p>
+        <p>You have booked {{num_tickets}} tickets</p>
     {% else %}
         <h2 class="error">{{ message }}</h2>
     {% endif %}
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Verification</title>
+    <style>
+        /* Gradient Background */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(to right, #2E8B57, #3CB371, #66CDAA, #98FB98);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container Box */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Success & Error Messages */
+        .success {
+            color: #28a745;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Text Styling */
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            body { padding: 30px 10px; }
+            .container { padding: 20px; }
+            p { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        {% if status == "success" %}
+            <h2 class="success">✅ {{ message }}</h2>
+            <p>Welcome, <b>{{ email }}</b>! You have successfully entered the event.</p>
+            <p>🎟️ You have booked <b>{{ num_tickets }}</b> tickets.</p>
+        {% else %}
+            <h2 class="error">❌ {{ message }}</h2>
+            <p>Sorry, we couldn’t verify your entry.</p>
+        {% endif %}
+    </div>
+
 </body>
 </html>

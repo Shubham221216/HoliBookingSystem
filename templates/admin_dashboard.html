@@ -12,24 +12,24 @@
     <video id="preview" width="300" height="250"></video>
 
     <script>
-        // Detect if the device is NOT a mobile device
         function isMobileDevice() {
             return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
-
+    
         if (!isMobileDevice()) {
             alert("⚠️ QR scanning is only available on mobile devices!");
             document.body.innerHTML = "<h2 style='color: red;'>🚫 QR Scanning is allowed only on mobile devices.</h2>";
         } else {
             let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-
+    
             scanner.addListener('scan', function (qrCodeUrl) {
                 window.location.href = qrCodeUrl; // Redirect after scanning
             });
-
+    
             Instascan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length > 0) {
-                    scanner.start(cameras[0]); // Start scanning using rear camera
+                    let backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back')) || cameras[cameras.length - 1]; 
+                    scanner.start(backCamera); // ✅ Start rear camera if available
                 } else {
                     alert('No camera found. Please allow camera access.');
                 }

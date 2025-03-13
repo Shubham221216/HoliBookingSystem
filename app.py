@@ -390,7 +390,7 @@ def success():
     print(f"Number Tickets stored in session: {session.get('num_tickets')}")  # Debugging
 
     payment_id = session.get('payment_id', 'Unknown')
-    print(f"Payment Id:{payment_id}")
+    print(f"Payment Id in success function:{payment_id}")
 
 
     # Generate a unique verification link
@@ -478,9 +478,19 @@ def verify_qr(qr_code):
 
     # Update the entry status
     booking.entry_status = 'Scanned'
+
     db.session.commit()
 
-    return f"✅ Welcome {booking.user_email}! You have successfully entered the event."
+    user_email = booking.user_email
+
+    # name = session.get('name','Unknown')
+
+    num_tickets = booking.num_tickets
+
+
+    # return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
+    return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets)
+
 
 
 def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_code):
