@@ -24,13 +24,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:nESoqHxQRFPlcUziHc
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-# # 🔑 Replace with your Razorpay API Keys
-RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
-RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
+ # 🔑 Replace with your Razorpay API Keys Shubham Razorpay
+# RAZORPAY_KEY_ID = "rzp_live_LrhkqxYpvBkWBI"
+# RAZORPAY_KEY_SECRET = "Ag9Lt8kiiJvMyXKGGCgpMqVt"
 
-
-# RAZORPAY_KEY_ID = "rzp_live_cXy0lZ4QA7cOjC"
-# RAZORPAY_KEY_SECRET = "56lL0KRLjD4gngA43btNCOoW"
+# Aishwarya RazorPay
+RAZORPAY_KEY_ID = "rzp_live_cXy0lZ4QA7cOjC"
+RAZORPAY_KEY_SECRET = "56lL0KRLjD4gngA43btNCOoW"
 
 db = SQLAlchemy(app)
 
@@ -75,9 +75,10 @@ razorpay_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'chowdhurydevhelp22@gmail.com'  # Replace with your email
-app.config['MAIL_PASSWORD'] = 'ciuwztxgnxqfqbqc'  # Replace with your email password
-app.config['MAIL_DEFAULT_SENDER'] ='chowdhurydevhelp22@gmail.com'
+app.config['MAIL_USERNAME'] = 'theredcarpetevents2322@gmail.com'  # Replace with your email
+# app.config['MAIL_PASSWORD'] = 'ciuwztxgnxqfqbqc'  # Replace with your email password
+app.config['MAIL_PASSWORD'] = 'ouukymiumwuqxadk'  # Replace with your email password
+app.config['MAIL_DEFAULT_SENDER'] ='theredcarpetevents2322@gmail.com'
 
 mail = Mail(app)
 
@@ -224,7 +225,7 @@ def payment():
 
 
     rounded_price_per_ticket = math.ceil(amount/num_tickets)
-    print("Rounded amount is ")
+    print("Rounded amount is ",rounded_price_per_ticket)
 
     # ✅ Store multiple names in session as a list
     # names = [request.form.get(f'name_{i}') for i in range(1, int(session.get('num_tickets', 1)) + 1)]
@@ -392,6 +393,7 @@ def success():
     payment_id = session.get('payment_id', 'Unknown')
     print(f"Payment Id in success function:{payment_id}")
 
+    
 
     # Generate a unique verification link
     unique_qr_url = f"https://holibookingsystem.onrender.com/verify_qr/{payment_id}"
@@ -411,6 +413,7 @@ def success():
     else:
         print("✅ QR Code Found:", qr_code)
 
+    send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
     
     return render_template('success.html'
                            , email=email,names=names,plan_type=plan_type,
@@ -487,9 +490,11 @@ def verify_qr(qr_code):
 
     num_tickets = booking.num_tickets
 
+    status = 'success'
 
-    return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
-    # return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets)
+
+    # return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
+    return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets,status=status)
 
 
 
