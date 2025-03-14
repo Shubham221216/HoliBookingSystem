@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,7 +103,7 @@
         <p>Your tickets for the <b>{{ plan_type }}</b> plan have been confirmed.</p>
 
         <div class="qr-section">
-            <!-- <h3>You have been provided a QR Code 𝄃𝄃𝄂𝄂𝄀</h3> -->
+             <h3>You have been provided a QR Code 𝄃𝄃𝄂𝄂𝄀</h3> Comment Here
             <h3>📌 Scan the QR code at entry:</h3>
             {% if qrcode %}
             <img id="qrCodeImage" src="data:image/png;base64,{{ qrcode }}" alt="QR Code">
@@ -136,6 +136,274 @@
             }
         });
         </script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Successful</title>
+    <link rel="icon" href="../static/the_red_carpet.jpg" type="image/png">
+    <style>
+        /* Page Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Card Layout */
+        .success-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .qr-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .qr-section img {
+            width: 180px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        /* Button Styling */
+        .home-button {
+            display: inline-block;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+            transform: scale(1.05);
+        }
+
+        /* Email Notification Popup Styling */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .popup-content h3 {
+            color: #4a4a4a;
+            margin-top: 5px;
+        }
+
+        .popup-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 450px) {
+            .success-container {
+                padding: 20px;
+                width: 85%;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .qr-section img {
+                width: 150px;
+            }
+            
+            /* Mobile-specific popup styles */
+            .popup-content {
+                padding: 15px;
+                width: 85%;
+                max-width: 300px;
+            }
+            
+            .popup-content h3 {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+            
+            .popup-content p {
+                font-size: 13px;
+                margin: 8px 0;
+            }
+            
+            .popup-icon {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+            
+            .close-button {
+                top: 5px;
+                right: 5px;
+                font-size: 18px;
+                width: 25px;
+                height: 25px;
+            }
+        }
+        
+        /* Additional styles for very small screens */
+        @media (max-width: 320px) {
+            .popup-content {
+                padding: 12px;
+                width: 90%;
+            }
+            
+            .popup-content h3 {
+                font-size: 16px;
+            }
+            
+            .popup-content p {
+                font-size: 12px;
+                margin: 6px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-container">
+        <h2>🎉 Payment Successful!</h2>
+        <p>Thank you for booking, <b>{{ name }}</b>!</p>
+        <p>Your tickets for the <b>{{ plan_type }}</b> plan have been confirmed.</p>
+
+        <div class="qr-section">
+            <h3>📌 Scan the QR code at entry:</h3>
+            <h3>Download this QR</h3>
+            {% if qrcode %}
+            <img id="qrCodeImage" src="data:image/png;base64,{{ qrcode }}" alt="QR Code">
+            {% else %}
+            <p>⚠️ No QR Code Generated</p>
+            <p>Please Contact Admin</p>
+            📩 Email: <a href="mailto:theredcarpetevents2322@gmail.com">theredcarpetevents</a> <br>
+            {% endif %}
+            <p></p>
+            <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>
+        </div>
+
+        <a href="/" class="home-button">Go to Homepage</a>
+    </div>
+
+    <!-- Email Invoice Popup -->
+    <div id="emailPopup" class="popup-overlay">
+        <div class="popup-content">
+            <button id="closePopup" class="close-button">✕</button>
+            <span class="popup-icon">📧</span>
+            <h3>Invoice Sent!</h3>
+            <p>You have received your invoice at <b>{{ email }}</b></p>
+            <p>If you don't see the mail in your inbox, please check your <b>Spam</b> or <b>Junk</b> folder.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrCodeImage = document.getElementById('qrCodeImage');
+            const popup = document.getElementById('emailPopup');
+            const closeButton = document.getElementById('closePopup');
+            
+            // QR Code click event
+            if (qrCodeImage) {
+                qrCodeImage.addEventListener('click', function() {
+                    const link = document.createElement('a');
+                    link.href = this.src;
+                    link.download = 'qrcode.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+            
+            // Close popup when close button is clicked
+            closeButton.addEventListener('click', function() {
+                popup.style.display = 'none';
+            });
+            
+            // Auto close popup after 3 seconds
+            // setTimeout(function() {
+            //     popup.style.display = 'none';
+            // }, 7000);
+        });
+    </script>
 
 </body>
 </html>
