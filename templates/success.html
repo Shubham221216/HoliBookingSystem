@@ -106,9 +106,11 @@
             <!-- <h3>You have been provided a QR Code 𝄃𝄃𝄂𝄂𝄀</h3> -->
             <h3>📌 Scan the QR code at entry:</h3>
             {% if qrcode %}
-            <img src="data:image/png;base64,{{ qrcode }}" alt="QR Code">
+            <img id="qrCodeImage" src="data:image/png;base64,{{ qrcode }}" alt="QR Code">
         {% else %}
             <p>⚠️ No QR Code Generated</p>
+            <p>Please Contact Admin</p>
+            📩 Email: <a href="mailto:theredcarpetevents2322@gmail.com">theredcarpetevents</a> <br>
         {% endif %}
              <p></p>
             <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>
@@ -122,14 +124,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             const qrCodeImage = document.getElementById('qrCodeImage');
         
-            qrCodeImage.addEventListener('click', function() {
-                const link = document.createElement('a');
-                link.href = this.src; // Use the image's source directly
-                link.download = 'qrcode.png'; // Set the download filename
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
+            if (qrCodeImage) { // Ensure the element exists before adding the event listener
+                qrCodeImage.addEventListener('click', function() {
+                    const link = document.createElement('a');
+                    link.href = this.src;
+                    link.download = 'qrcode.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
         });
         </script>
 
