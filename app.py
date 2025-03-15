@@ -128,7 +128,7 @@ def index():
     return render_template('index.html', available_tickets=available_tickets)
 
 
-app.route('/adminHome')
+app.route('/adminhome')
 def adminHome():
     return render_template('admin_dashboard.html')
 

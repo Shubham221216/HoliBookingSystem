@@ -106,11 +106,11 @@
             <p>Welcome! You have successfully entered the event.</p>
             <p>Your Email<b>{{ user_email }}</b></p>
             <p>🎟️ You have booked <b>{{ num_tickets }}</b> tickets.</p>
-            <a href="/adminHome" class="home-button">Home</a>
+            <a href="/adminhome" class="home-button">Home</a>
         {% else %}
             <h2 class="error">❌ {{ message }}</h2>
             <p>Sorry, we couldn’t verify your entry.</p>
-            <a href="/adminHome">Home</a>
+            <a href="/adminhome" class="home-button">Home</a>
         {% endif %}
     </div>
 
