@@ -84,14 +84,14 @@
     <div class="container">
         {% if status == "success" %}
             <h2 class="success">✅ {{ message }}</h2>
-            <p>Welcome,<b>{{name}}</b>! You have successfully entered the event.</p>
+            <p>Welcome! You have successfully entered the event.</p>
             <p>Your Email<b>{{ user_email }}</b></p>
             <p>🎟️ You have booked <b>{{ num_tickets }}</b> tickets.</p>
-            <a href="/templates/admin_dashboard.html">Home</a>
+            <a href="admin_dashboard.html">Home</a>
         {% else %}
             <h2 class="error">❌ {{ message }}</h2>
             <p>Sorry, we couldn’t verify your entry.</p>
-            <a href="/templates/admin_dashboard.html">Home</a>
+            <a href="admin_dashboard.html">Home</a>
         {% endif %}
     </div>
 

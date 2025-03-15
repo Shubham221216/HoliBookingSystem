@@ -217,7 +217,7 @@ def payment():
     # # Plan Pricing
     # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 
-    plan_prices = {"1": 1, "2":2}  # Make the keys match the values from HTML
+    plan_prices = {"1": 299, "2":349}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
     print(f"Amount is {session.get('amount')}")
@@ -485,8 +485,8 @@ def verify_qr(qr_code):
 
     user_email = booking.user_email
 
-    name = session.get('name','Unknown')
-    print(f"Prinitng name in verify_qr() function:-{name}")
+    # name = session.get('name','Unknown')
+    # print(f"Prinitng name in verify_qr() function:-{name}")
 
 
     num_tickets = booking.num_tickets
@@ -495,7 +495,7 @@ def verify_qr(qr_code):
 
 
     # return f"✅ Welcome {user_email},You have Booked: {num_tickets}! You have successfully entered the event."
-    return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets,status=status,name=name)
+    return render_template('verify_qr.html', user_email=user_email,num_tickets=num_tickets,status=status)
 
 
 
