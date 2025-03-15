@@ -76,7 +76,6 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'theredcarpetevents2322@gmail.com'  # Replace with your email
-# app.config['MAIL_PASSWORD'] = 'ciuwztxgnxqfqbqc'  # Replace with your email password
 app.config['MAIL_PASSWORD'] = 'ouukymiumwuqxadk'  # Replace with your email password
 app.config['MAIL_DEFAULT_SENDER'] ='theredcarpetevents2322@gmail.com'
 
@@ -218,7 +217,7 @@ def payment():
     # # Plan Pricing
     # plan_prices = {"Plan 1": 1, "Plan 2": 2, "Plan 3": 3}
 
-    plan_prices = {"1": 299, "2":349}  # Make the keys match the values from HTML
+    plan_prices = {"1": 1, "2":2}  # Make the keys match the values from HTML
     amount = num_tickets * plan_prices[plan_type]  # Calculate total price
     session['amount'] = amount
     print(f"Amount is {session.get('amount')}")
