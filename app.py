@@ -128,9 +128,6 @@ def index():
     return render_template('index.html', available_tickets=available_tickets)
 
 
-app.route('/adminhome')
-def adminHome():
-    return render_template('admin_dashboard.html')
 
 
 @app.route('/book', methods=['GET', 'POST'])
@@ -467,6 +464,9 @@ def admin_dashboard():
 
 
 
+@app.route('/adminhome')
+def adminHome():
+    return render_template('admin_dashboard.html')
 
 @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
 def verify_qr(qr_code):
