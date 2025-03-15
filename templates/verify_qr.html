@@ -71,6 +71,25 @@
             color: #fff;
         }
 
+        .home-button {
+            display: inline-block;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f);
+            transform: scale(1.05);
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 600px) {
             body { padding: 30px 10px; }
@@ -87,11 +106,11 @@
             <p>Welcome! You have successfully entered the event.</p>
             <p>Your Email<b>{{ user_email }}</b></p>
             <p>🎟️ You have booked <b>{{ num_tickets }}</b> tickets.</p>
-            <a href="admin_dashboard.html">Home</a>
+            <a href="/adminHome" class="home-button">Home</a>
         {% else %}
             <h2 class="error">❌ {{ message }}</h2>
             <p>Sorry, we couldn’t verify your entry.</p>
-            <a href="admin_dashboard.html">Home</a>
+            <a href="/adminHome">Home</a>
         {% endif %}
     </div>
 

@@ -128,6 +128,11 @@ def index():
     return render_template('index.html', available_tickets=available_tickets)
 
 
+app.route('/adminHome')
+def adminHome():
+    return render_template('admin_dashboard.html')
+
+
 @app.route('/book', methods=['GET', 'POST'])
 def book():
 
@@ -518,9 +523,13 @@ def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_t
 
     Total Amount Paid: ₹{amount}
 
+    For any queries contact us on : theredcarpetevents2322@gmail.com | 9175326213
+    
     Scan the QR code below at the event entry.
 
     Payment ID: {payment_id}
+
+    
 
     Best regards,
     HoliNation
