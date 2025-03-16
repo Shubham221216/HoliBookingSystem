@@ -817,6 +817,34 @@
     
 }
 
+.text-sangli p{
+    /* background: rgb(235, 83, 83); */
+    background: linear-gradient(to right, rgba(230, 204, 255, 0.6), rgb(199, 146, 234), rgb(160, 90, 220));
+    font-family: 'Roboto Slab', serif;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 50px;
+    padding-right: 15px;
+    padding-left: 13px;
+}
+
+.location p{
+    background: rgb(234, 237, 83);
+    /* background: linear-gradient(to right, rgba(239, 40, 206, 0.6), rgb(236, 51, 172), rgb(228, 3, 172)); */
+    background: linear-gradient(to right, rgba(240, 248, 255, 0.6), rgb(208, 235, 252), rgb(176, 223, 249));
+
+    font-family: 'Roboto Slab', serif;
+    color: black;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 50px;
+    padding-right: 15px;
+    padding-bottom: 13px;
+}
+
     </style>
 </head>
 <body>
@@ -835,10 +863,16 @@
         
 
         
-        <div class="text-sangli">
-            <!-- <button>18 March 2025 • Sangli's biggest festival of colors</button> -->
-             <p style="font-weight: bolder; font-size: 25px;">19 March 2025 • Sangli's biggest festival of colors</p>
+        <div class="text-sangli ">
+            <p style="font-weight: bolder; font-size: 20px;">19 March 2025 • Sangli's biggest festival of colors</p>
         </div>
+
+        <div class="text-sangli location">
+            <!-- <button>18 March 2025 • Sangli's biggest festival of colors</button> -->
+             <p style="font-weight: bolder; font-size: 20px; ">📍 Venue: Sanjay Bhokare College Ground, Sangli-Miraj Road, Sangli</p>
+        </div>
+
+        
 
         
         <div class="holination-logo">
@@ -871,7 +905,7 @@
             <!-- Book Tickets Button -->
         <button id="showFormButton" class="book_button">🎟️ Book Tickets Now</button>
         <!-- Book Tickets Button -->
-        <button id="nav-section-button" class="book_button event-button" style="margin-bottom: 10px;">View Event Details</button>
+        <button id="nav-section-button" class="book_button event-button" style="margin-bottom: 10px;"><a href="{{ url_for('about') }}" style="color: white;text-decoration: none;">View Event Details</a></button>
         
         </div>
         
@@ -966,7 +1000,7 @@
     </nav>
 
     <!-- <script>
-         // Show the form when button is clicked
+        // Show the form when button is clicked
     document.getElementById("showFormButton").addEventListener("click", function() {
         document.getElementById("bookingFormContainer").style.display = "block";
         this.style.display = "none"; // Hide the button

@@ -272,6 +272,15 @@
             display: block;
         }
 
+        /* Location styling */
+        .venue-info {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 450px) {
             .success-container {
@@ -345,8 +354,13 @@
     <div class="success-container">
         <h2>🎉 Payment Successful!</h2>
         <p>Thank you for booking, <b>{{ name }}</b>!</p>
+        
         <p>Your tickets for the Plan Type: <b>{{ plan_type }}</b> have been confirmed.</p>
-
+        <!-- Added venue information here with styling -->
+        <div class="venue-info">
+            <p><b>📍 Venue:</b> Sanjay Bhokare College Ground, Sangli-Miraj Road, Sangli</p>
+        </div>
+        
         <div class="qr-section">
             <h3>📌 Scan the QR code at entry:</h3>
             <h3>Download this QR</h3>
@@ -356,6 +370,7 @@
             <p>⚠️ No QR Code Generated</p>
             <p>Please Contact Admin</p>
             📩 Email: <a href="mailto:theredcarpetevents2322@gmail.com">theredcarpetevents</a> <br>
+            📞 Phone: <a href="tel:+9175326213">+91 9175326213</a> <br>
             {% endif %}
             <p></p>
             <p><b>Note:</b> This QR Code is valid for one-time entry only.</p>

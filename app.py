@@ -466,6 +466,7 @@ def admin_dashboard():
 
 @app.route('/adminhome')
 def adminHome():
+    
     return render_template('admin_dashboard.html')
 
 @app.route('/verify_qr/<string:qr_code>', methods=['GET'])
@@ -523,6 +524,8 @@ def send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_t
 
     Total Amount Paid: ₹{amount}
 
+    Location: 📍Sanjay Bhokare Collage Ground, Sangli-Miraj Road, Sangli...
+    
     For any queries contact us on : theredcarpetevents2322@gmail.com | 9175326213
     
     Scan the QR code below at the event entry.
