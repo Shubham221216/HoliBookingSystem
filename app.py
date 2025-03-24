@@ -11,7 +11,7 @@ import math
 from flask_migrate import Migrate
 from io import BytesIO
 import base64
-
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -327,6 +327,10 @@ def payment_success():
         # if total_booked + num_tickets > 1500:
         #     return "❌ Booking limit exceeded! No more tickets available."
 
+        # ✅ Send invoice email to user
+        # Sending the invoice before saving the data in database
+        send_invoice_email(email, names,phone,num_tickets, amount, payment_id,plan_type,qr_base64)
+
         # ✅ Store booking details in database
         new_booking = Booking(
             user_email=email,
@@ -464,6 +468,30 @@ def admin_dashboard():
 
 
 
+
+@app.route('/viewUser')
+def viewUser():
+    # if 'admin_logged_in' not in session:
+    #     return redirect(url_for('admin_login'))
+    
+
+    users = Booking.query.with_entities(
+        Booking.id,
+        Booking.user_email,
+        Booking.num_tickets,
+        Booking.total_price,
+        Booking.payment_status,
+        Booking.plan_type
+    ).all()
+    #print(Booking.total_price)
+    total_price = sum(user[3] for user in users)
+
+    print(f"This is Total of all the tickets>>{total_price}")
+    print(total_price)
+
+    return render_template('view_users.html',users=users,total_price=total_price)
+
+
 @app.route('/adminhome')
 def adminHome():
     
@@ -560,3 +588,8 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
+
+
+# if __name__ == '__main__':
+#     port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is not set
+#     app.run(host="0.0.0.0", port=port, debug=True)

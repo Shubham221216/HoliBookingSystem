@@ -1,0 +1,551 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                margin: 10px auto;
+            }
+
+            .user-table thead {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            .user-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+            }
+
+            .user-table td {
+                display: block;
+                text-align: right;
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            .user-table td:before {
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                content: attr(data-label);
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Bookings</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Tickets</th>
+                    <th>Total Price</th>
+                    <th>Payment Status</th>
+                    <th>Plan Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td data-label="ID">{{ user.id }}</td>
+                    <td data-label="Email">{{ user.user_email }}</td>
+                    <td data-label="Tickets">{{ user.num_tickets }}</td>
+                    <td data-label="Total Price">₹{{ user.total_price }}</td>
+                    <td data-label="Payment Status">{{ user.payment_status }}</td>
+                    {% if user.plan_type== '2' %}
+                    <td data-label="Plan Type">349</td>
+                    {%else%}
+                    <td data-label="Plan Type">299</td>
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --text-color: #333;
+            --border-color: #ddd;
+            --background-color: #f4f4f4;
+            --card-background: #fff;
+            --header-background: #f2f2f2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-background);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: var(--header-background);
+            font-weight: 600;
+        }
+
+        .user-table tr:nth-child(even) {
+            background-color: rgba(242, 242, 242, 0.4);
+        }
+
+        .user-table tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .user-table {
+                font-size: 14px;
+            }
+
+            .user-table thead {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            .user-table tbody, .user-table tr {
+                display: block;
+                width: 100%;
+            }
+
+            .user-table tr {
+                margin-bottom: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .user-table td {
+                display: flex;
+                justify-content: space-between;
+                text-align: right;
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 10px 12px;
+            }
+
+            .user-table td:last-child {
+                border-bottom: none;
+            }
+
+            .user-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 10px;
+            }
+        }
+
+        /* Small Phone Screens */
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+                padding-bottom: 8px;
+            }
+
+            .user-table td {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Bookings</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Tickets</th>
+                    <th>Total Price</th>
+                    <th>Payment Status</th>
+                    <th>Plan Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td data-label="ID">{{ user.id }}</td>
+                    <td data-label="Email">{{ user.user_email }}</td>
+                    <td data-label="Tickets">{{ user.num_tickets }}</td>
+                    <td data-label="Total Price">₹{{ user.total_price }}</td>
+                    <td data-label="Payment Status">{{ user.payment_status }}</td>
+                    <td data-label="Plan Type">
+                        {% if user.plan_type == '2' %}
+                        ₹349
+                        {% else %}
+                        ₹299
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --text-color: #333;
+            --border-color: #ddd;
+            --background-color: #f4f4f4;
+            --card-background: #fff;
+            --header-background: #f2f2f2;
+            --highlight-color: #2980b9;
+            --success-color: #27ae60;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-background);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: var(--header-background);
+            font-weight: 600;
+        }
+
+        .user-table tr:nth-child(even) {
+            background-color: rgba(242, 242, 242, 0.4);
+        }
+
+        .user-table tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Total price summary section */
+        .summary-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .total-card {
+            background-color: var(--highlight-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 220px;
+            text-align: right;
+        }
+
+        .total-label {
+            font-size: 14px;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .booking-count {
+            margin-top: 8px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .user-table {
+                font-size: 14px;
+            }
+
+            .user-table thead {
+                display: none; /* Hide table headers on small screens */
+            }
+
+            .user-table tbody, .user-table tr {
+                display: block;
+                width: 100%;
+            }
+
+            .user-table tr {
+                margin-bottom: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .user-table td {
+                display: flex;
+                justify-content: space-between;
+                text-align: right;
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 10px 12px;
+            }
+
+            .user-table td:last-child {
+                border-bottom: none;
+            }
+
+            .user-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 10px;
+            }
+
+            .summary-section {
+                justify-content: center;
+                
+            }
+
+            .total-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Small Phone Screens */
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+                padding-bottom: 8px;
+            }
+
+            .user-table td {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            .total-amount {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Bookings</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Tickets</th>
+                    <th>Total Price</th>
+                    <th>Payment Status</th>
+                    <th>Plan Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td data-label="ID">{{ user.id }}</td>
+                    <td data-label="Email">{{ user.user_email }}</td>
+                    <td data-label="Tickets">{{ user.num_tickets }}</td>
+                    <td data-label="Total Price">₹{{ user.total_price }}</td>
+                    <td data-label="Payment Status">{{ user.payment_status }}</td>
+                    <td data-label="Plan Type">
+                        {% if user.plan_type == '2' %}
+                        ₹349
+                        {% else %}
+                        ₹299
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Total Price Summary Section -->
+        <div class="summary-section">
+            <div class="total-card">
+                <span class="total-label">Total Revenue</span>
+                <div class="total-amount">₹{{ total_price }}</div>
+                <div class="booking-count">{{ users|length }} bookings</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
